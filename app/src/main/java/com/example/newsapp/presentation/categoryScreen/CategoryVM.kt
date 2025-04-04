@@ -10,7 +10,7 @@
 //import androidx.lifecycle.ViewModel
 //import androidx.lifecycle.viewModelScope
 //import com.example.newsapp.data.local.preference.DataStoreManager
-//import com.example.newsapp.data.models.NewsResponseDto
+//import com.example.newsapp.data.models.api.NewsResponseDto
 //import com.example.newsapp.data.remote.api.RetrofitInstance
 //import com.example.newsapp.data.repository.SettingsRepositoryImpl
 //import com.example.newsapp.domain.model.Article

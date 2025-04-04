@@ -17,7 +17,7 @@ import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
 @Composable
 
 fun MainScreen() {
-
+    Log.d("MyLog", " in  MainScreen")
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRout = backStackEntry?.destination?.route

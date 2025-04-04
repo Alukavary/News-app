@@ -40,28 +40,27 @@ import countryNames
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreen() {
-    val insets = WindowInsets.systemBars.asPaddingValues()
     var checked by rememberSaveable { mutableStateOf<Boolean>(false) }
-
-
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 30.dp, bottom = 70.dp)
-            .padding(insets)
+            .padding(top = 50.dp, bottom = 70.dp)
     ) {
         Column {
             Title("Settings")
             Spacer(Modifier.padding(bottom = 20.dp))
 
             Box(
-//                shape = RoundedCornerShape(10.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 5.dp)
-                    .border(width = 2.dp, color = MaterialTheme.colorScheme.onBackground ,shape = RoundedCornerShape(10.dp))
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        shape = RoundedCornerShape(10.dp)
+                    )
 
             ) {
                 Row(
@@ -77,49 +76,14 @@ fun SettingsScreen() {
                     )
 
                     Switch(
-                        checked = checked,
-                        onCheckedChange = {
+                        checked = checked, onCheckedChange = {
                             checked = it
-                        },
-                        colors = SwitchDefaults.colors(
+                        }, colors = SwitchDefaults.colors(
                             checkedThumbColor = LightPrimary,
                             uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
                         )
                     )
-
                 }
-            }
-            Box(
-//                shape = RoundedCornerShape(10.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .border(width = 2.dp, color = MaterialTheme.colorScheme.onBackground ,shape = RoundedCornerShape(10.dp))
-//                    .border(width = 2.dp, color = Color.Red, shape = RoundedCornerShape(8.dp))
-
-            ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(10.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    Text(
-                        text = "Choose country",
-                        fontSize = 25.sp,
-                    )
-                    Selector(
-                        countryNames,
-                        countryCodes,
-                        "US",
-                        {}
-
-                    )
-
-
-
-                }
-
 
             }
         }

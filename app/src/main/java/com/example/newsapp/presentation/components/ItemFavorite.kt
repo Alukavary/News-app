@@ -24,54 +24,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.newsapp.domain.model.Article
-import com.example.newsapp.ui.theme.LightPrimary
 import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
 import kotlinx.serialization.json.Json
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Card
-import androidx.compose.material3.Text
-
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
-import com.example.newsapp.R
-import com.example.newsapp.presentation.detailsScreen.DetailsScreen
-import com.example.newsapp.ui.theme.LightPrimary
-import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
+import com.example.newsapp.domain.model.ArticleModel
+
 
 @Preview(showBackground = true)
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ItemFavorite(
-    item: Article,
+    item: ArticleModel,
     navController: NavController,
 ) {
 
@@ -81,7 +54,7 @@ fun ItemFavorite(
         modifier = Modifier
             .fillMaxWidth()
             .size(300.dp)
-            .padding(bottom = 10.dp)
+            .padding(bottom = 30.dp)
     ) {
 
         Box(
@@ -90,7 +63,7 @@ fun ItemFavorite(
                 .alpha(0.5F)
                 .clickable(onClick = {
                     isClicked = true
-                    val json = Uri.encode(Json.encodeToString(Article.serializer(), item))
+                    val json = Uri.encode(Json.encodeToString(ArticleModel.serializer(), item))
                     navController.navigate("$DETAILS_SCREEN_ROUTE/$json")
                 }),
         )
@@ -114,7 +87,6 @@ fun ItemFavorite(
         ) {
             Text(
                 text = item.title,
-//                text = "jdgfjhsgfhjdgshfjgdshjfghdsgfhjgdsjhfghdfghjdsghfjdshjfdjgh",
                 fontSize = 25.sp,
                 lineHeight = 27.sp,
                 fontWeight = FontWeight.Bold,
@@ -131,28 +103,22 @@ fun ItemFavorite(
                     .padding(bottom = 20.dp)
 
             )
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 3.dp)
-
-            ) {
-                Text(
-                    text = item.publishedAt,
-//                    text = "dsfsdfsd",
-                    fontSize = 14.sp,
-                    color = Color.White,
-                    style = TextStyle(
-                        shadow = Shadow(
-                            color = Color.Gray,
-                            offset = Offset(2f, 2f),
-                            blurRadius = 3f
-                        )
-                    )
-                )
-            }
         }
+        Text(
+            text = item.publishedAtFormatted,
+            fontSize = 14.sp,
+            color = Color.White,
+            style = TextStyle(
+                shadow = Shadow(
+                    color = Color.Gray,
+                    offset = Offset(2f, 2f),
+                    blurRadius = 3f
+                )
+            ),
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(8.dp)
+        )
     }
 
 }

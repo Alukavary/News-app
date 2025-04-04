@@ -24,6 +24,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,7 +34,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.newsapp.domain.model.Article
+import com.example.newsapp.domain.model.ArticleModel
 import com.example.newsapp.presentation.detailsScreen.DetailsScreen
 import com.example.newsapp.ui.theme.LightPrimary
 import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
@@ -44,83 +45,141 @@ import kotlinx.serialization.json.Json
 @Preview(showBackground = true)
 @Composable
 fun ItemNews(
-    item: Article,
+    item: ArticleModel,
     navController: NavController,
 ) {
 
     var isClicked by remember { mutableStateOf<Boolean>(false) }
 
     Card(
-        shape = RoundedCornerShape(0.dp),
+        shape = RoundedCornerShape(2.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(6.dp)
+            .padding(10.dp)
+            .shadow(5.dp)
             .clickable(onClick = {
                 isClicked = true
-                val json = Uri.encode(Json.encodeToString(Article.serializer(), item))
+                val json = Uri.encode(Json.encodeToString(ArticleModel.serializer(), item))
                 navController.navigate("$DETAILS_SCREEN_ROUTE/$json")
             }),
     ) {
-
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(6.dp)
-
         ) {
-
-            GlideImage(
-//            AsyncImage(
-                model = item.urlToImage,
-                contentDescription = "",
-                modifier = Modifier.size(150.dp),
-                contentScale = ContentScale.Crop,
-            )
-            Column {
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
+        GlideImage(
+            model = item.urlToImage,
+//                model = R.drawable.fake_news_icon,
+            contentDescription = "",
+            modifier = Modifier
+                .height(170.dp)
+                .width(150.dp),
+            contentScale = ContentScale.Crop,
+        )
+        Column {
+            Row(
+                modifier = Modifier
+                    .padding(8.dp)
+            ) {
+                Column(
+                    verticalArrangement = Arrangement.Center
                 ) {
 
-                    Column(
-                        verticalArrangement = Arrangement.Center
-                    ) {
-
-                        Text(
-                            text = item.title,
-                            lineHeight = 15.sp,
-                            fontSize = 10.sp,
-                            maxLines = 4,
-                            fontWeight = FontWeight.Bold
-
-                        )
-                        Text(
-                            text = item.description,
-                            fontSize = 10.sp,
-                            maxLines = 4,
-                            lineHeight = 15.sp
-
-                        )
-                    }
-                }
-
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp),
-                    horizontalArrangement = Arrangement.End
-
-                ) {
                     Text(
-                        text = item.publishedAt,
-                        fontSize = 11.sp,
-                        color = LightPrimary,
-
-                        )
+                        text = item.title + "...",
+                        lineHeight = 15.sp,
+                        fontSize = 10.sp,
+                        maxLines = 4,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(bottom = 10.dp)
+                    )
+                    Text(
+                        text = item.description + "...",
+                        fontSize = 10.sp,
+                        maxLines = 3,
+                        lineHeight = 15.sp
+                    )
                 }
             }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                horizontalArrangement = Arrangement.End
+
+            ) {
+                Text(
+                    text = item.publishedAtFormatted,
+                    fontSize = 11.sp,
+                    color = LightPrimary,
+                )
+            }
         }
+    }
+
+
+
+//        Row(
+//            verticalAlignment = Alignment.CenterVertically,
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(6.dp)
+//
+//        ) {
+//
+//            GlideImage(
+////            AsyncImage(
+//                model = item.urlToImage,
+//                contentDescription = "",
+//                modifier = Modifier.size(150.dp),
+//                contentScale = ContentScale.Crop,
+//            )
+//            Column {
+//                Row(
+//                    modifier = Modifier
+//                        .padding(8.dp)
+//                ) {
+//
+//                    Column(
+//                        verticalArrangement = Arrangement.Center
+//                    ) {
+//
+//                        Text(
+//                            text = item.title,
+//                            lineHeight = 15.sp,
+//                            fontSize = 10.sp,
+//                            maxLines = 4,
+//                            fontWeight = FontWeight.Bold
+//
+//                        )
+//                        Text(
+//                            text = item.description,
+//                            fontSize = 10.sp,
+//                            maxLines = 4,
+//                            lineHeight = 15.sp
+//
+//                        )
+//                    }
+//                }
+//
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .padding(8.dp),
+//                    horizontalArrangement = Arrangement.End
+//
+//                ) {
+//                    Text(
+//                        text = item.publishedAtFormatted,
+//                        fontSize = 11.sp,
+//                        color = LightPrimary,
+//
+//                        )
+//                }
+//            }
+//        }
     }
 
 }

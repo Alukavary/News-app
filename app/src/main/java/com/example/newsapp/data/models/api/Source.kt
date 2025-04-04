@@ -1,10 +1,10 @@
-package com.example.newsapp.data.models
+package com.example.newsapp.data.models.api
 
 import androidx.room.ColumnInfo
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Source(
+class Source(
     @ColumnInfo(name = "source_id")val id: String,
     val name: String
 )

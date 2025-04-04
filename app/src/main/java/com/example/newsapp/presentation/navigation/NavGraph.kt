@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.newsapp.domain.model.Article
+import com.example.newsapp.domain.model.ArticleModel
 import com.example.newsapp.presentation.detailsScreen.DetailsScreen
 import com.example.newsapp.presentation.favoriteScreen.FavoriteScreen
 import com.example.newsapp.presentation.newsScreen.MainNewsScreen
@@ -38,7 +38,7 @@ fun NavGraph(
         }
         composable("${DETAILS_SCREEN_ROUTE}/{articleJson}"){backStackEntry->
             val json = backStackEntry.arguments?.getString("articleJson")
-            val article = Json.decodeFromString<Article>(json!!)
+            val article = Json.decodeFromString<ArticleModel>(json!!)
             DetailsScreen(article)
         }
 

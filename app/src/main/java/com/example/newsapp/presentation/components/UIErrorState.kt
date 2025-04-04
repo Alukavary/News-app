@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.transition.CircularPropagation
 import com.example.newsapp.R
-import com.example.newsapp.domain.model.TypeError
 
 //@Preview(showBackground = true)
 @Composable
@@ -50,31 +49,28 @@ fun LoadingScreen() {
         CircularProgressIndicator(
             color = Color.Black, modifier = Modifier.padding(10.dp)
         )
-
     }
-
 }
 
 
 @Composable
 fun ErrorScreen(
-    type: TypeError,
-    msg: String,
-    context: Context
+    msg: String, context: Context
 ) {
-    when (type) {
-        TypeError.NETWORK -> {
-            ShowToast(context, msg)
-            ErrorNetwork()
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 200.dp)
+    ) {
 
-
-        }
-
-        TypeError.OTHER -> {
-            ShowToast(context, msg)
-
-        }
+        Image(
+            painter = painterResource(id = R.drawable.fake_news_icon),
+            contentDescription = "icon",
+            Modifier.size(150.dp)
+        )
     }
+    ShowToast(context, msg)
 
 }
 
@@ -88,7 +84,7 @@ fun ShowToast(context: Context, message: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun ErrorNetwork(){
+fun ErrorNetwork() {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier

@@ -9,14 +9,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.example.newsapp.data.models.NewsResponseDto
-import com.example.newsapp.domain.model.Article
-import com.example.newsapp.presentation.detailsScreen.DetailsScreen
+import com.example.newsapp.domain.model.ArticleModel
 
 @Composable
 
 fun ListViewForStart(
-    data: List<Article>,
+    data: List<ArticleModel>,
     navController: NavController,
 ) {
     val firstNews = data.first()

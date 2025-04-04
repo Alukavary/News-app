@@ -1,9 +1,7 @@
 package com.example.newsapp.data.remote.api
 
-import com.example.newsapp.data.models.NewArticle
-import com.example.newsapp.data.models.NewsResponseDto
+import com.example.newsapp.data.models.api.NewsResponseDto
 import com.example.newsapp.utils.Constants.API_KEY
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 

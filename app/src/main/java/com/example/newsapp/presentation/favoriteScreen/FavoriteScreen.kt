@@ -1,5 +1,6 @@
 package com.example.newsapp.presentation.favoriteScreen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -33,9 +34,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.newsapp.R
-import com.example.newsapp.domain.model.Article
-import com.example.newsapp.presentation.components.CustomIconButton
 import com.example.newsapp.presentation.components.ItemFavorite
 import com.example.newsapp.presentation.components.ItemNews
 import com.example.newsapp.presentation.components.Title
@@ -45,57 +43,35 @@ import com.example.newsapp.ui.theme.LightPrimary
 @Preview(showBackground = true)
 @Composable
 fun FavoriteScreen(
-    viewModel: FavoriteVM = hiltViewModel(),
-    navController: NavController
+    viewModel: FavoriteVM = hiltViewModel(), navController: NavController
 ) {
-    val insets = WindowInsets.systemBars.asPaddingValues()
-
     val data by viewModel.favoriteArticle.collectAsState()
 
-//    LaunchedEffect(Unit) {
-//        viewModel.data.observeForever { news->
-//            data =news
-//        }
-//    }
+    Log.d("MyLog", "FavoriteScreen ${data.size}")
 
     Column(
         modifier = Modifier
-            .padding(insets)
-            .padding(horizontal = 20.dp)
-            .padding(top = 30.dp, bottom = 70.dp)
+            .padding(top = 50.dp, bottom = 70.dp)
             .fillMaxSize()
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp)
         ) {
             Title("Favorite")
-
-            Icon(
-                painter = painterResource(id = R.drawable.bookmark_favorite),
-                contentDescription = null,
-                tint = LightPrimary
-            )
         }
 
         LazyColumn(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            items(data.size){item ->
-//                Row(
-//                    modifier =
-//                        Modifier
-//                            .fillMaxWidth()
-//                            .clickable(onClick = {
-//                               viewModel.deleteArticles(data.value[item])
-//                            })
-//
-//                ) {
+            items(data.size) { item ->
                 ItemFavorite(
                     data[item],
                     navController = navController
                 )
-                }
+            }
         }
 
     }

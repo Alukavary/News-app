@@ -24,9 +24,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CustomIconButton(
-    onClick: ()->Unit,
+    onClick: () -> Unit,
     icon: Int,
-//    isTimeLight: Boolean
 ) {
     var isClicked by remember { mutableStateOf<Boolean>(false) }
     val coroutineScope = rememberCoroutineScope()
@@ -35,22 +34,18 @@ fun CustomIconButton(
         onClick = {
             onClick.invoke()
             isClicked = true
-                coroutineScope.launch {
-                    delay(100L)
-                    isClicked = false
-                }
+            coroutineScope.launch {
+                delay(100L)
+                isClicked = false
             }
+        }
 
     ) {
         Icon(
             painter = painterResource(id = icon),
             contentDescription = "icon",
-            tint =
-                if (isClicked) {
-                    LightPrimary
-                }else
-                    MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier
+            tint = LightPrimary,
+            modifier = Modifier
                 .size(50.dp)
 
         )

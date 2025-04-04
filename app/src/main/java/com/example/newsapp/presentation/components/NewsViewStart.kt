@@ -4,7 +4,6 @@ import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -23,9 +22,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.example.newsapp.data.models.NewArticle
+import com.example.newsapp.domain.model.ArticleModel
 
-import com.example.newsapp.domain.model.Article
 import com.example.newsapp.ui.theme.LightPrimary
 import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
 import kotlinx.serialization.json.Json
@@ -33,7 +31,7 @@ import kotlinx.serialization.json.Json
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun NewsViewStart(
-    firstNews: Article,
+    firstNews: ArticleModel,
     navController: NavController
 ) {
     var isClicked by rememberSaveable { mutableStateOf<Boolean>(false) }
@@ -42,7 +40,7 @@ fun NewsViewStart(
             .fillMaxSize()
             .clickable(onClick = {
                 isClicked = true
-                val json = Uri.encode(Json.encodeToString(Article.serializer(), firstNews))
+                val json = Uri.encode(Json.encodeToString(ArticleModel.serializer(), firstNews))
                 navController.navigate("$DETAILS_SCREEN_ROUTE/$json")
             })
     ) {
@@ -56,7 +54,6 @@ fun NewsViewStart(
                     .size(300.dp),
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Crop,
-//                    error = painterResource(R.drawable.fake_news_icon),
             )
             Column(
                 horizontalAlignment = Alignment.Start,
@@ -79,7 +76,7 @@ fun NewsViewStart(
                 horizontalAlignment = Alignment.End,
             ) {
                 Text(
-                    text = firstNews.publishedAt,
+                    text = firstNews.publishedAtFormatted,
                     fontSize = 14.sp,
                     color = LightPrimary
 

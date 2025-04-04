@@ -12,7 +12,7 @@ class NewsRepositoryRemoteImpl @Inject constructor(
         api.getHeadlines(countryCode, pageNumber)
 
 
-    override suspend fun getSearchForNews(searchQuery:String, pageNumber: Int) =
+    override suspend fun getNewsByCategory(searchQuery:String, pageNumber: Int) =
     api.searchForNews(searchQuery, pageNumber)
 
 

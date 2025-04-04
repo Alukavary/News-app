@@ -23,36 +23,28 @@ import com.example.newsapp.ui.theme.LightPrimary
 fun LikeCustomButton(
     onClickAdd: () -> Unit,
     onClickDelete: () -> Unit,
-    existing: Boolean
+    isFav: Boolean
 ) {
-
-//    var isClicked by rememberSaveable { mutableStateOf<Boolean>(false) }
-    var existing by rememberSaveable { mutableStateOf(existing) }
+    var isClicked by rememberSaveable { mutableStateOf(isFav) }
 
     IconButton(
         onClick = {
-            if (existing){
+            if (isFav) {
+                isClicked = false
                 onClickDelete.invoke()
-                existing = false
             } else {
+                isClicked = true
                 onClickAdd.invoke()
-                existing = true
             }
         }
-
     ) {
         Icon(
-            painter =
-                if (!existing)
-                    painterResource(id = R.drawable.stars)
-                else
-                    painterResource(id = R.drawable.baseline_star_24),
+            modifier = Modifier.size(160.dp),
+            painter = if (!isClicked) painterResource(id = R.drawable.stars)
+            else painterResource(id = R.drawable.baseline_star_24),
 
             contentDescription = null,
             tint = LightPrimary,
-            modifier = Modifier.size(120.dp)
         )
     }
 }
-
-

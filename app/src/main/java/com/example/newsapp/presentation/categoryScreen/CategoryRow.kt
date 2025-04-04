@@ -27,7 +27,6 @@ import kotlin.String
 @Composable
 fun CategoryRow(
     viewModel: NewsVM = hiltViewModel(),
-//    isClickedNews: Boolean
 ) {
     var selectedItemId by rememberSaveable { mutableStateOf<String>("general") }
 
@@ -54,7 +53,7 @@ fun CategoryRow(
                 itemList[item].category,
                 onClick = {
                     selectedItemId = itemList[item].category
-                    viewModel.getNewCategory(selectedItemId)
+                    viewModel.loadingCategory(selectedItemId)
                 },
                     isSelected = selectedItemId == itemList[item].category,
             )
