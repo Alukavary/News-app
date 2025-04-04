@@ -24,16 +24,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.newsapp.R
+import com.example.newsapp.domain.repository.NewsRepositoryLocal
+import com.example.newsapp.presentation.components.CustomIconButton
 import com.example.newsapp.presentation.components.ItemFavorite
 import com.example.newsapp.presentation.components.ItemNews
 import com.example.newsapp.presentation.components.Title
@@ -43,12 +40,12 @@ import com.example.newsapp.ui.theme.LightPrimary
 @Preview(showBackground = true)
 @Composable
 fun FavoriteScreen(
-    viewModel: FavoriteVM = hiltViewModel(), navController: NavController
+    viewModel: FavoriteVM = hiltViewModel(),
+    navController: NavController,
 ) {
     val data by viewModel.favoriteArticle.collectAsState()
 
     Log.d("MyLog", "FavoriteScreen ${data.size}")
-
     Column(
         modifier = Modifier
             .padding(top = 50.dp, bottom = 70.dp)
@@ -61,6 +58,11 @@ fun FavoriteScreen(
                 .padding(horizontal = 20.dp)
         ) {
             Title("Favorite")
+
+            CustomIconButton(
+                onClick = {viewModel.allFavDelete(viewModel.localdb)},
+                    icon = R.drawable.baseline_restore_from_trash_24
+            )
         }
 
         LazyColumn(

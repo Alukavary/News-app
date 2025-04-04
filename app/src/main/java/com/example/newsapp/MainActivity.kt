@@ -17,7 +17,6 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             NewsAppTheme {
-                Log.d("MyLog", " in  MainActivity")
                 MainScreen()
             }
         }

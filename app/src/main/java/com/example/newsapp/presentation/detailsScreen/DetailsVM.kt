@@ -16,7 +16,6 @@ class DetailsVM @Inject constructor(
     val localDb: NewsRepositoryLocal
 ) : ViewModel() {
 
-
     fun resetIsFavoriteOrNot(article: ArticleModel, isFavorite: Boolean) {
         viewModelScope.launch {
             localDb.resetFavoriteFalse( isFavorite, article.title)
@@ -24,34 +23,3 @@ class DetailsVM @Inject constructor(
     }
 }
 
-//    private var _existing = MutableStateFlow<Boolean>(false)
-//    val existing: StateFlow<Boolean> =_existing
-//
-//
-//   fun existingArticle(article: Article) {
-//       viewModelScope.launch {
-//           val article = localDb.getAllArticleById(article.title)
-//              _existing.value = article == null
-//       }
-//   }
-//
-//
-//
-//    fun getDeleteArticles(article: Article) {
-//        viewModelScope.launch {
-//            localDb.deleteArticle(toEntity(article))
-//        }
-//    }
-//
-//    fun upsetArticle(article: Article) {
-//        Log.d("MyLog", "Adding article: $article")
-//
-//        viewModelScope.launch {
-//            val existing = localDb.getAllArticleById(article.title)
-//            if (existing == null)
-//                localDb.upset(toEntity(article))
-//            Log.d("MyLog", "from entity: ${existing}")
-//
-//        }
-//    }
-//}

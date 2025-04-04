@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.components
+package com.example.newsapp.presentation.categoryScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -9,12 +9,9 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,12 +20,16 @@ import com.example.newsapp.data.models.NewsCategory
 import com.example.newsapp.presentation.newsScreen.NewsVM
 import com.example.newsapp.ui.theme.LightPrimary
 import kotlin.String
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.LaunchedEffect
+
 
 @Composable
 fun CategoryRow(
     viewModel: NewsVM = hiltViewModel(),
 ) {
-    var selectedItemId by rememberSaveable { mutableStateOf<String>("general") }
+    val selectedItemId by viewModel.selectedCategory.collectAsState()
+    val listState = rememberLazyListState()
 
 
     val itemList = listOf(
@@ -41,19 +42,27 @@ fun CategoryRow(
         NewsCategory("Technology"),
     )
 
+    LaunchedEffect(selectedItemId) {
+        val index = itemList.indexOfFirst { it.category == selectedItemId }
+        if (index >= 0) {
+            listState.animateScrollToItem(index)
+        }
+    }
+
+
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
-
+            .padding(horizontal = 25.dp)
+            .padding(top = 40.dp)
         ) {
 
         items (itemList.size){ item ->
             ThemeItem(
                 itemList[item].category,
                 onClick = {
-                    selectedItemId = itemList[item].category
-                    viewModel.loadingCategory(selectedItemId)
+                    viewModel.loadingCategory(itemList[item].category)
                 },
                     isSelected = selectedItemId == itemList[item].category,
             )
@@ -66,31 +75,28 @@ fun ThemeItem(
     theme: String,
     onClick:() -> Unit,
     isSelected: Boolean,
-//    isSelectedNews: Boolean
 ) {
     Box(
         modifier = Modifier
             .padding(end = 15.dp)
             .padding(vertical = 10.dp)
             .clickable(onClick = onClick),
-    ){
+    ) {
 
         Text(
             text = theme,
             fontSize =
-                if(isSelected) {
+                if (isSelected) {
                     23.sp
-                }else {
+                } else {
                     16.sp
-            },
+                },
 
             color =
-                if(isSelected)
+                if (isSelected)
                     LightPrimary
                 else
                     MaterialTheme.colorScheme.onBackground,
         )
     }
-
 }
-

@@ -54,7 +54,7 @@ fun ItemFavorite(
         modifier = Modifier
             .fillMaxWidth()
             .size(300.dp)
-            .padding(bottom = 30.dp)
+            .padding(bottom = 8.dp)
     ) {
 
         Box(

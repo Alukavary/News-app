@@ -44,7 +44,7 @@ object AppModule {
         Room.databaseBuilder(
             context.applicationContext,
             ArticleDatabase::class.java,
-            "articles_cached_db.db"
+            "article_cached_db.db"
         ).build()
 
 

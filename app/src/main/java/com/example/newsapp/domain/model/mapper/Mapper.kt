@@ -19,7 +19,6 @@ fun NewsArticle.toArticleDb(category: String,
 
     return Article(
         title = title ?: "",
-        id = id,
         author = author ?: "",
         content = content ?: "",
         description = description ?: "",
@@ -40,7 +39,6 @@ private fun String.convertTime(): String {
 fun Article.toArticleModel(): ArticleModel {
     Log.d("MyLog", "используем toArticleModel")
     return ArticleModel(
-        id = id,
         author = author,
         content = content,
         description = description,
@@ -56,7 +54,6 @@ fun Article.toArticleModel(): ArticleModel {
 fun ArticleModel.toArticleDbl(): Article {
     Log.d("MyLog", "используем toArticleDbl")
     return Article(
-        id = id,
         author = author,
         content = content,
         description = description,

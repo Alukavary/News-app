@@ -39,7 +39,7 @@ fun NavGraph(
         composable("${DETAILS_SCREEN_ROUTE}/{articleJson}"){backStackEntry->
             val json = backStackEntry.arguments?.getString("articleJson")
             val article = Json.decodeFromString<ArticleModel>(json!!)
-            DetailsScreen(article)
+            DetailsScreen(article,navController = navHostController )
         }
 
     }

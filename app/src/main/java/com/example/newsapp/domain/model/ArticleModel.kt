@@ -5,7 +5,6 @@ import java.sql.Timestamp
 
 @Serializable
 class ArticleModel(
-    val id: Int? = null,
     val author: String,
     val content: String,
     val description: String,

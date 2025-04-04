@@ -13,6 +13,8 @@ interface NewsRepositoryLocal {
 
     suspend fun deleteCachedCategory(category:String)
 
+    suspend fun deleteIsFavCategory(isFavorite: Boolean)
+
     fun getArticlesIsFavoriteFromDb(isFavorite: Boolean):Flow<List<Article>>
 
     suspend fun resetFavoriteFalse(isFavorite: Boolean, title:String)

@@ -55,7 +55,8 @@ fun ItemNews(
         shape = RoundedCornerShape(2.dp),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(horizontal = 10.dp)
+            .padding(bottom = 8.dp)
             .shadow(5.dp)
             .clickable(onClick = {
                 isClicked = true

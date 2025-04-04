@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.detailsScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.newsapp.R
@@ -40,7 +40,7 @@ import com.example.newsapp.ui.theme.LightPrimary
 @Composable
 fun DetailsScreen(
     data: ArticleModel,
-    viewModel: DetailsVM = hiltViewModel()
+    navController: NavController
 ) {
     Column(
         modifier = Modifier
@@ -70,7 +70,9 @@ fun DetailsScreen(
                     .padding(start = 8.dp, top = 10.dp)
             ) {
                 CustomIconButton(
-                    onClick = {},
+                    onClick = {
+                        navController.popBackStack()
+                    },
                     icon = R.drawable.arrow_back,
                 )
             }
@@ -115,12 +117,7 @@ fun DetailsScreen(
                     .padding(end = 10.dp)
             ) {
                 LikeCustomButton(
-                    onClickDelete = {
-                        viewModel.resetIsFavoriteOrNot(data, true)
-                    },
-                    onClickAdd = {
-                        viewModel.resetIsFavoriteOrNot(data, false)
-                    },
+                    data = data,
                     isFav = data.isFavorite
                 )
             }

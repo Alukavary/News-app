@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,28 +28,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.transition.CircularPropagation
 import com.example.newsapp.R
+import com.example.newsapp.presentation.categoryScreen.CategoryRow
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun LoadingScreen() {
-
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
+    Box(
+        contentAlignment = Alignment.Center,
         modifier = Modifier
-            .background(color = Color.White)
             .fillMaxSize()
-            .padding(20.dp)
-
+            .padding(top = 30.dp)
     ) {
-
-        Text(
-            text = "Loading...",
-            fontSize = 20.sp,
-        )
-        CircularProgressIndicator(
-            color = Color.Black, modifier = Modifier.padding(10.dp)
-        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .background(Color.White)
+                .padding(20.dp)
+        ) {
+            Text(
+                text = "Loading...",
+                fontSize = 20.sp,
+            )
+            CircularProgressIndicator(
+                color = Color.Black, modifier = Modifier.padding(10.dp)
+            )
+        }
     }
 }
 
