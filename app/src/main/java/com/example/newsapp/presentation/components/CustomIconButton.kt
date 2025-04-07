@@ -34,10 +34,6 @@ fun CustomIconButton(
         onClick = {
             onClick.invoke()
             isClicked = true
-            coroutineScope.launch {
-                delay(100L)
-                isClicked = false
-            }
         }
 
     ) {

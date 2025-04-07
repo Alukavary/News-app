@@ -1,19 +1,14 @@
 package com.example.newsapp.presentation.components
 
 import android.content.Context
-import android.view.Gravity
-import android.widget.Button
 import android.widget.Toast
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
@@ -26,9 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.transition.CircularPropagation
 import com.example.newsapp.R
-import com.example.newsapp.presentation.categoryScreen.CategoryRow
 
 @Preview(showBackground = true)
 @Composable
@@ -62,19 +55,18 @@ fun LoadingScreen() {
 fun ErrorScreen(
     msg: String, context: Context
 ) {
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(top = 200.dp)
-    ) {
-
-        Image(
-            painter = painterResource(id = R.drawable.fake_news_icon),
-            contentDescription = "icon",
-            Modifier.size(150.dp)
-        )
-    }
+//    Column(
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(top = 200.dp)
+//    ) {
+//
+//        Image(
+//            painter = painterResource(id = R.drawable.fake_news_icon),
+//            contentDescription = "icon",
+//            Modifier.size(150.dp)
+//        )//    }
     ShowToast(context, msg)
 
 }
@@ -83,7 +75,6 @@ fun ErrorScreen(
 @Composable
 fun ShowToast(context: Context, message: String) {
     val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
-//    toast.setGravity(Gravity.TOP or Gravity.CENTER_HORIZONTAL, 0, 100)
     toast.show()
 }
 

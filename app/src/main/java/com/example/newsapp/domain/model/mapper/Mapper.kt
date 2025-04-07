@@ -15,8 +15,6 @@ private const val OUTPUT_FORMAT = "yyyy-MM-dd"
 
 fun NewsArticle.toArticleDb(category: String,
 ): Article {
-    Log.d("MyLog", "используем toArticleDb")
-
     return Article(
         title = title ?: "",
         author = author ?: "",
@@ -37,7 +35,6 @@ private fun String.convertTime(): String {
 }
 
 fun Article.toArticleModel(): ArticleModel {
-    Log.d("MyLog", "используем toArticleModel")
     return ArticleModel(
         author = author,
         content = content,
@@ -46,13 +43,12 @@ fun Article.toArticleModel(): ArticleModel {
         title = title,
         url = url,
         urlToImage = urlToImage,
-        isFavorite = false,
+        isFavorite = isFavorite,
         category = category,
     )
 }
 
-fun ArticleModel.toArticleDbl(): Article {
-    Log.d("MyLog", "используем toArticleDbl")
+fun ArticleModel.toArticleDb(): Article {
     return Article(
         author = author,
         content = content,
@@ -61,7 +57,7 @@ fun ArticleModel.toArticleDbl(): Article {
         title = title,
         url = url,
         urlToImage = urlToImage,
-        isFavorite = false,
+        isFavorite = isFavorite,
         category = category,
     )
 }

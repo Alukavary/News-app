@@ -1,7 +1,8 @@
 package com.example.newsapp.utils
 
 object Constants{
-    const val API_KEY = "adb14370dcd345998c0d860e1924f877"
+//    const val API_KEY = "adb14370dcd345998c0d860e1924f877"
+    const val API_KEY = "79ac8cb6254941b2b971d4f0379589ac"
     const val BASE_URL ="https://newsapi.org/"
     const val SEARCH_NEWS_TIME_DELAY = "500L"
     const val QUERY_PAGE_SIZE = "20"

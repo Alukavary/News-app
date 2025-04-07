@@ -19,8 +19,8 @@ class NewsRepositoryLocalImpl @Inject constructor(
         db.getArticleDao().upsetCachedArticle(articles)
     }
 
-    override fun getArticlesIsFavoriteFromDb(isFavorite: Boolean): Flow<List<Article>> {
-        return db.getArticleDao().getArticlesIsFavoriteFromDb(isFavorite)
+    override fun getArticlesIsFavoriteFromDb(): Flow<List<Article>> {
+        return db.getArticleDao().getArticlesIsFavoriteFromDb()
     }
 
     override suspend fun resetFavoriteFalse(isFavorite: Boolean, title: String) {
@@ -34,16 +34,4 @@ class NewsRepositoryLocalImpl @Inject constructor(
     override suspend fun deleteIsFavCategory(isFavorite: Boolean) {
         db.getArticleDao().deleteIsFavCategory(isFavorite)
     }
-
-
-//    override suspend fun upset(article: NewsArticle) = db.getArticleDao().upset(article)
-//
-//    override fun getAllArticles() = db.getArticleDao().getAllArticles()
-////    override suspend fun getAllArticles() = db.getArticleDao().getAllArticles()
-//
-//    override suspend fun getAllArticleById(title: String) =
-//        db.getArticleDao().getAllArticleByID(title)
-//
-//    override suspend fun deleteArticle(article: NewsArticle) =
-//        db.getArticleDao().deleteArticle(article)
 }

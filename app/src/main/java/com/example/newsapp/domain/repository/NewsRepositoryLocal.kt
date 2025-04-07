@@ -15,14 +15,8 @@ interface NewsRepositoryLocal {
 
     suspend fun deleteIsFavCategory(isFavorite: Boolean)
 
-    fun getArticlesIsFavoriteFromDb(isFavorite: Boolean):Flow<List<Article>>
+    fun getArticlesIsFavoriteFromDb():Flow<List<Article>>
 
     suspend fun resetFavoriteFalse(isFavorite: Boolean, title:String)
 
-
-//    suspend fun upset(article: NewsArticle):Long
-//
-//    fun getAllArticles(): Flow<List<NewsArticle>>
-//    suspend fun getAllArticleById(title:String): NewsArticle?
-//    suspend fun deleteArticle(article: NewsArticle)
 }

@@ -95,7 +95,6 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
 
-
     // DataStore
     implementation(libs.datastore.preferences)
 
@@ -103,29 +102,22 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.56.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-
     // Coroutine & Lifecycle
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("androidx.compose.runtime:runtime-livedata:1.7.8")
 
-
     //glide
     implementation ("com.github.bumptech.glide:compose:1.0.0-beta01")
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
 
-    //refresh
-//    implementation("androidx.compose.material3:material-pullrefresh:1.2.0-alpha03")
-//    implementation(libs.accompanist.swiperefresh)
-
-
-
     //serializable
-//    implementation(libs.kotlinx.serialization.json)
-
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
+
+//    jsoup
+    implementation ("org.jsoup:jsoup:1.16.1")
 
 
 

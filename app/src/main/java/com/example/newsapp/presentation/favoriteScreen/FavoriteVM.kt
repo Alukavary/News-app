@@ -18,29 +18,26 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteVM @Inject constructor(
-localDb: NewsRepositoryLocal
-): ViewModel(){
+    localDb: NewsRepositoryLocal
+) : ViewModel() {
     val localdb = localDb
 
     private var _data = MutableLiveData<List<ArticleModel>>()
     val data: LiveData<List<ArticleModel>> = _data
 
     val favoriteArticle: StateFlow<List<ArticleModel>> =
-        localDb.getArticlesIsFavoriteFromDb(true)
-        .map { item -> item.map{it.toArticleModel()} }
-        .stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.Lazily,
-        initialValue = emptyList()
-    )
-
+        localDb.getArticlesIsFavoriteFromDb()
+            .map { item -> item.map { it.toArticleModel() } }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                initialValue = emptyList()
+            )
     fun allFavDelete(
         localDb: NewsRepositoryLocal
-    ){
+    ) {
         viewModelScope.launch {
             localDb.deleteIsFavCategory(isFavorite = true)
         }
     }
-
-
 }

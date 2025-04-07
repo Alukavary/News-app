@@ -1,22 +1,19 @@
-package com.example.newsapp.data.local.db
+package com.example.newsapp.data.local.dbCachedTime
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.example.newsapp.data.models.Article
-import com.example.newsapp.data.models.api.NewsArticle
+import com.example.newsapp.data.local.db.ArticleDatabase
+import com.example.newsapp.data.models.CategoryTime
 
 
 @Database(
-    entities = [Article::class], version = 1
+    entities = [CategoryTime::class], version = 1
 )
 
-@TypeConverters(Converters::class)
-abstract class ArticleDatabase : RoomDatabase() {
-
-    abstract fun getArticleDao(): ArticleDao
+abstract class NewsCategoryFetchTimeDatabase: RoomDatabase() {
+    abstract fun getCategoryTimeDao(): CategoryTimeDao
 
     companion object {
         @Volatile
@@ -28,9 +25,8 @@ abstract class ArticleDatabase : RoomDatabase() {
                 instance = it
             }
         }
-
         private fun createDatabase(context: Context) = Room.databaseBuilder(
-            context.applicationContext, ArticleDatabase::class.java, "article_db.db"
+            context.applicationContext, ArticleDatabase::class.java, "category_fetch_time.db"
         ).build()
     }
 }

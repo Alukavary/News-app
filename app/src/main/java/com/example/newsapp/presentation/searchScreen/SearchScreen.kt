@@ -1,46 +1,56 @@
 package com.example.newsapp.presentation.searchScreen
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBars
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.newsapp.R
-import com.example.newsapp.presentation.components.CustomIconButton
+import com.example.newsapp.domain.model.UIState
+import com.example.newsapp.presentation.components.ErrorScreen
+import com.example.newsapp.presentation.components.ListViewForSearch
+import com.example.newsapp.presentation.components.LoadingScreen
 import com.example.newsapp.presentation.components.SearchCard
 import com.example.newsapp.presentation.components.Title
-import com.example.newsapp.ui.theme.Grey
 
-@Preview(showBackground = true)
 @Composable
-
 fun SearchScreen(
+    navController: NavController,
     viewModel: SearchVM = hiltViewModel()
 ) {
+    val data = viewModel.listData.collectAsState()
+    val context = LocalContext.current
+    val state by viewModel.data.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
             .padding(top = 50.dp, bottom = 70.dp)
-        ){
+    ) {
         Row(
-            Modifier.padding(bottom = 15.dp)
-        ){
+            modifier = Modifier
+                .padding(bottom = 15.dp)
+                .padding(horizontal = 20.dp)
+        ) {
             Title("Search")
         }
-        SearchCard(onClick = {}, R.drawable.search)
-
+        SearchCard(
+            icon = R.drawable.search
+        )
+       Column {
+            when (state) {
+                is UIState.Loading -> LoadingScreen()
+                is UIState.Success -> ListViewForSearch(data.value, navController)
+                is UIState.Error -> ErrorScreen("Incorrect input try again", context = context)
+                is UIState.Default -> {}
+            }
+        }
     }
-
 }

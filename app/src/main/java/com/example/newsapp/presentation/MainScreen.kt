@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.presentation.categoryScreen.CategoryRow
+import com.example.newsapp.presentation.components.CategoryRow
 import com.example.newsapp.presentation.navigation.BottomNavBar
 import com.example.newsapp.presentation.navigation.NavGraph
 import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE

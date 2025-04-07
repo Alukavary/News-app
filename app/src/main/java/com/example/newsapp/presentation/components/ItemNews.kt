@@ -69,118 +69,58 @@ fun ItemNews(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-        GlideImage(
-            model = item.urlToImage,
+            GlideImage(
+                model = item.urlToImage,
 //                model = R.drawable.fake_news_icon,
-            contentDescription = "",
-            modifier = Modifier
-                .height(170.dp)
-                .width(150.dp),
-            contentScale = ContentScale.Crop,
-        )
-        Column {
-            Row(
+                contentDescription = "",
                 modifier = Modifier
-                    .padding(8.dp)
+                    .height(170.dp)
+                    .width(150.dp),
+                contentScale = ContentScale.Crop,
+            )
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Column(
-                    verticalArrangement = Arrangement.Center
+                Row(
+                    modifier = Modifier
+                        .padding(8.dp)
                 ) {
+                    Column(
+                        verticalArrangement = Arrangement.Center
+                    ) {
 
+                        Text(
+                            text = item.title + "...",
+                            lineHeight = 15.sp,
+                            fontSize = 10.sp,
+                            maxLines = 4,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(bottom = 10.dp)
+                        )
+                        Text(
+                            text = item.description + "...",
+                            fontSize = 10.sp,
+                            maxLines = 3,
+                            lineHeight = 15.sp
+                        )
+                    }
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    horizontalArrangement = Arrangement.End
+
+                ) {
                     Text(
-                        text = item.title + "...",
-                        lineHeight = 15.sp,
-                        fontSize = 10.sp,
-                        maxLines = 4,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(bottom = 10.dp)
-                    )
-                    Text(
-                        text = item.description + "...",
-                        fontSize = 10.sp,
-                        maxLines = 3,
-                        lineHeight = 15.sp
+                        text = item.publishedAtFormatted,
+                        fontSize = 11.sp,
+                        color = LightPrimary,
                     )
                 }
             }
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                horizontalArrangement = Arrangement.End
-
-            ) {
-                Text(
-                    text = item.publishedAtFormatted,
-                    fontSize = 11.sp,
-                    color = LightPrimary,
-                )
-            }
         }
-    }
-
-
-
-//        Row(
-//            verticalAlignment = Alignment.CenterVertically,
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(6.dp)
-//
-//        ) {
-//
-//            GlideImage(
-////            AsyncImage(
-//                model = item.urlToImage,
-//                contentDescription = "",
-//                modifier = Modifier.size(150.dp),
-//                contentScale = ContentScale.Crop,
-//            )
-//            Column {
-//                Row(
-//                    modifier = Modifier
-//                        .padding(8.dp)
-//                ) {
-//
-//                    Column(
-//                        verticalArrangement = Arrangement.Center
-//                    ) {
-//
-//                        Text(
-//                            text = item.title,
-//                            lineHeight = 15.sp,
-//                            fontSize = 10.sp,
-//                            maxLines = 4,
-//                            fontWeight = FontWeight.Bold
-//
-//                        )
-//                        Text(
-//                            text = item.description,
-//                            fontSize = 10.sp,
-//                            maxLines = 4,
-//                            lineHeight = 15.sp
-//
-//                        )
-//                    }
-//                }
-//
-//                Row(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .padding(8.dp),
-//                    horizontalArrangement = Arrangement.End
-//
-//                ) {
-//                    Text(
-//                        text = item.publishedAtFormatted,
-//                        fontSize = 11.sp,
-//                        color = LightPrimary,
-//
-//                        )
-//                }
-//            }
-//        }
     }
 
 }

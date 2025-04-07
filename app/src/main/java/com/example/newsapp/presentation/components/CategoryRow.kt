@@ -1,4 +1,4 @@
-package com.example.newsapp.presentation.categoryScreen
+package com.example.newsapp.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

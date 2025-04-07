@@ -70,7 +70,6 @@ fun ItemFavorite(
         {
             GlideImage(
                 model = item.urlToImage,
-//                model = R.drawable.fake_news_icon,
                 contentDescription = null,
                 modifier = Modifier.fillMaxWidth(),
                 contentScale = ContentScale.Crop,
@@ -101,7 +100,6 @@ fun ItemFavorite(
                 ),
                 modifier = Modifier
                     .padding(bottom = 20.dp)
-
             )
         }
         Text(

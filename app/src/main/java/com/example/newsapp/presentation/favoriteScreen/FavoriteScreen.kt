@@ -37,15 +37,14 @@ import com.example.newsapp.presentation.components.Title
 import com.example.newsapp.ui.theme.Grey
 import com.example.newsapp.ui.theme.LightPrimary
 
-@Preview(showBackground = true)
 @Composable
 fun FavoriteScreen(
     viewModel: FavoriteVM = hiltViewModel(),
     navController: NavController,
 ) {
     val data by viewModel.favoriteArticle.collectAsState()
+    Log.d("MyLog", " FavoriteScreen")
 
-    Log.d("MyLog", "FavoriteScreen ${data.size}")
     Column(
         modifier = Modifier
             .padding(top = 50.dp, bottom = 70.dp)
@@ -58,24 +57,20 @@ fun FavoriteScreen(
                 .padding(horizontal = 20.dp)
         ) {
             Title("Favorite")
-
             CustomIconButton(
-                onClick = {viewModel.allFavDelete(viewModel.localdb)},
-                    icon = R.drawable.baseline_restore_from_trash_24
+                onClick = { viewModel.allFavDelete(viewModel.localdb) },
+                icon = R.drawable.baseline_restore_from_trash_24
             )
         }
-
         LazyColumn(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             items(data.size) { item ->
                 ItemFavorite(
-                    data[item],
-                    navController = navController
+                    data[item], navController = navController
                 )
             }
         }
-
     }
 }
 

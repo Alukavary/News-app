@@ -31,7 +31,7 @@ fun NavGraph(
             FavoriteScreen(navController = navHostController)
         }
         composable(SEARCH_SCREEN_ROUTE) {
-            SearchScreen()
+            SearchScreen(navController = navHostController)
         }
         composable(SETTINGS_SCREEN_ROUTE) {
             SettingsScreen()
