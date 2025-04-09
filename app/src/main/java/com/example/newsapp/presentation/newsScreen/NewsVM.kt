@@ -26,11 +26,13 @@ class NewsVM @Inject constructor(
     val newsUseCase: NewsUseCase
 
 ) : ViewModel() {
+
     private var _data = MutableStateFlow<UIState<List<ArticleModel>>>(UIState.Loading())
     val data = _data.asStateFlow()
 
     private var _isRefresh = MutableStateFlow<Boolean>(false)
     val isRefresh = _isRefresh.asStateFlow()
+
 
     private var _selectedCategory = MutableStateFlow<String?>(null)
     val selectedCategory = _selectedCategory.asStateFlow()
@@ -40,57 +42,34 @@ class NewsVM @Inject constructor(
             settingsDb.newsFilter
                 .distinctUntilChanged()
                 .collect { category ->
-                _selectedCategory.value = category
-                loadingCategory(category)
-                Log.d("MyLog", "init")
-            }
+                    _selectedCategory.value = category
+                    loadingCategory(category)
+                    Log.d("MyLog", "init")
+                }
         }
     }
-    val articleList: StateFlow<List<ArticleModel>> = data
-        .map { state ->
-            when (state) {
-                is UIState.Success -> state.data
-                else -> emptyList()
-            }
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
 
-    val generateItemList: StateFlow<List<GenerateItem>> = articleList
-        .map { articleDbList ->
-            generateItem(articleDbList)
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = emptyList()
-        )
-
-    fun generateItem(data: List<ArticleModel>): List<GenerateItem> {
+    fun generateItem(data: List<ArticleModel>?): List<GenerateItem> {
         val createItemList = mutableListOf<GenerateItem>()
-
-        for (i in data.indices) {
-            if (i == 0 || i % 5 == 0) createItemList.add(GenerateItem(ItemType.TYPE1, data[i]))
-            else createItemList.add(GenerateItem(ItemType.TYPE2, data[i]))
+        if (data != null) {
+            for (i in data.indices) {
+                if (i == 0 || i % 5 == 0) createItemList.add(GenerateItem(ItemType.TYPE1, data[i]))
+                else createItemList.add(GenerateItem(ItemType.TYPE2, data[i]))
+            }
+            return createItemList
         }
-        return createItemList
+        return emptyList()
     }
 
     fun loadingCategory(
         category: String,
     ) {
-        _data.value = UIState.Loading()
         viewModelScope.launch {
-            _isRefresh.value = true
             settingsDb.saveFilter(category)
+            _isRefresh.value = true
             newsUseCase.invoke(category).collect {
                 _data.value = it
-                Log.d("loadingCategory", "in news ${_data.value}")
                 _isRefresh.value = false
-
             }
         }
     }

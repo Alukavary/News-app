@@ -1,5 +1,6 @@
 package com.example.newsapp.presentation.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -49,7 +50,6 @@ fun CategoryRow(
         }
     }
 
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,6 +63,7 @@ fun CategoryRow(
                 itemList[item].category,
                 onClick = {
                     viewModel.loadingCategory(itemList[item].category)
+                    Log.d("MyLog", "category in row ${itemList[item].category}")
                 },
                     isSelected = selectedItemId == itemList[item].category,
             )

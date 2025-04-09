@@ -23,7 +23,7 @@ fun NavGraph(
     navHostController: NavHostController
 
 ) {
-    NavHost(navController = navHostController, startDestination = MAIN_SCREEN_ROUTE){
+    NavHost(navController = navHostController, startDestination = MAIN_SCREEN_ROUTE) {
         composable(MAIN_SCREEN_ROUTE) {
             MainNewsScreen(navController = navHostController)
         }
@@ -33,17 +33,13 @@ fun NavGraph(
         composable(SEARCH_SCREEN_ROUTE) {
             SearchScreen(navController = navHostController)
         }
-        composable(SETTINGS_SCREEN_ROUTE) {
-            SettingsScreen()
-        }
-        composable("${DETAILS_SCREEN_ROUTE}/{articleJson}"){backStackEntry->
+//        composable(SETTINGS_SCREEN_ROUTE) {
+//            SettingsScreen()
+//        }
+        composable("${DETAILS_SCREEN_ROUTE}/{articleJson}") { backStackEntry ->
             val json = backStackEntry.arguments?.getString("articleJson")
             val article = Json.decodeFromString<ArticleModel>(json!!)
-            DetailsScreen(article,navController = navHostController )
+            DetailsScreen(article, navController = navHostController)
         }
-
     }
-
-
-
 }

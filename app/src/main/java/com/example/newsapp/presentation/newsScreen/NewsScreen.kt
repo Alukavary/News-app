@@ -1,8 +1,8 @@
 package com.example.newsapp.presentation.newsScreen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -11,10 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.newsapp.domain.model.GenerateItem
+import com.example.newsapp.domain.model.ArticleModel
+import com.example.newsapp.domain.model.ErrorType
 import com.example.newsapp.domain.model.UIState
+import com.example.newsapp.presentation.components.ErrorNetwork
 import com.example.newsapp.presentation.components.ErrorScreen
 import com.example.newsapp.presentation.components.LazyColumForNews
 import com.example.newsapp.presentation.components.LoadingScreen
@@ -30,33 +32,52 @@ fun MainNewsScreen(
     val category by viewModel.selectedCategory.collectAsState()
 
     category?.let { category ->
-        val state by viewModel.data.collectAsState()
-        val generateList by viewModel.generateItemList.collectAsState()
-        when (state) {
+        val state by viewModel.data.collectAsStateWithLifecycle()
+        Log.d("MyLog", "сколько даты в ньюс скрин пришло со стейт ${state}")
+
+        when (val result = state) {
             is UIState.Loading -> LoadingScreen()
+            is UIState.Default -> {}
             is UIState.Success -> {
                 ScreenMain(
                     navController = navController,
-                    data = generateList,
-                )
+                    data = result.data,
+                    )
             }
-            is UIState.Error -> {ErrorScreen("Incorrect input try again", context = context) }
-            is UIState.Default -> {}
+
+            is UIState.Error -> {
+                when (result.type) {
+                    ErrorType.NETWORK_WITH_CACHE -> ScreenMain(
+                        navController,
+                        data = result.data,
+                        )
+
+                    ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetwork()
+                    ErrorType.OTHER_WITH_CACHE -> ScreenMain(
+                        navController,
+                        data = result.data,
+                    )
+
+                    else -> ErrorScreen(
+                        result.msg,
+                        context = context
+                    )
+                }
+            }
         }
     }
 }
 
 @Composable
 fun ScreenMain(
-    data: List<GenerateItem>,
     navController: NavController,
     viewModel: NewsVM = hiltViewModel(),
+    data: List<ArticleModel>?,
 ) {
-    val context = LocalContext.current
     val category by viewModel.selectedCategory.collectAsState()
     val isRefresh by viewModel.isRefresh.collectAsState()
-    val state by viewModel.data.collectAsState()
-    val generateList by viewModel.generateItemList.collectAsState()
+
+    val generateItem = viewModel.generateItem(data)
 
     Column(
         modifier = Modifier
@@ -65,20 +86,11 @@ fun ScreenMain(
     ) {
         category?.let { category ->
             PullRefresh(
-                isRefreshing = isRefresh,
-                onRefresh = { viewModel.loadingCategory(category) }
-            ) {
-                when (state) {
-                    is UIState.Loading -> LoadingScreen()
-                    is UIState.Success -> {
-                        LazyColumForNews(
-                            navController = navController,
-                            data = generateList,
-                        )
-                    }
-                    is UIState.Error -> {ErrorScreen("Incorrect input try again", context = context) }
-                    is UIState.Default -> {}
-                }
+                isRefreshing = isRefresh, onRefresh = { viewModel.loadingCategory(category) }) {
+                LazyColumForNews(
+                    navController = navController,
+                    data = generateItem
+                )
             }
         }
     }

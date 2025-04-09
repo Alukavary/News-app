@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.searchScreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.domain.model.ArticleModel
@@ -36,9 +35,10 @@ class SearchVM @Inject constructor(
             initialValue = emptyList()
         )
 
-    fun loadingCategory(
+  fun loadingCategory(
         category: String,
     ) {
+        _data.value = UIState.Loading()
         viewModelScope.launch {
             newsUseCase.invoke(category).collect {
                 _data.value = it

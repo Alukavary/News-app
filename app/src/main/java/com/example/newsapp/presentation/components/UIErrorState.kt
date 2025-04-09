@@ -12,16 +12,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newsapp.R
+import com.example.newsapp.ui.theme.LightPrimary
 
 @Preview(showBackground = true)
 @Composable
@@ -36,15 +43,16 @@ fun LoadingScreen() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.background)
                 .padding(20.dp)
         ) {
             Text(
                 text = "Loading...",
                 fontSize = 20.sp,
+                color = LightPrimary
             )
             CircularProgressIndicator(
-                color = Color.Black, modifier = Modifier.padding(10.dp)
+                color = LightPrimary, modifier = Modifier.padding(10.dp)
             )
         }
     }
@@ -55,22 +63,8 @@ fun LoadingScreen() {
 fun ErrorScreen(
     msg: String, context: Context
 ) {
-//    Column(
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        modifier = Modifier
-//            .fillMaxSize()
-//            .padding(top = 200.dp)
-//    ) {
-//
-//        Image(
-//            painter = painterResource(id = R.drawable.fake_news_icon),
-//            contentDescription = "icon",
-//            Modifier.size(150.dp)
-//        )//    }
     ShowToast(context, msg)
-
 }
-
 
 @Composable
 fun ShowToast(context: Context, message: String) {
@@ -85,14 +79,27 @@ fun ErrorNetwork() {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 200.dp)
+            .padding(top = 150.dp)
     ) {
 
-        Image(
-            painter = painterResource(id = R.drawable.signal_error_internet),
+        Icon(
+            painter = painterResource(id = R.drawable.signal_error),
             contentDescription = "icon",
-            Modifier.size(150.dp)
+            tint = MaterialTheme.colorScheme.onBackground,
+            modifier = Modifier
+                .size(150.dp)
+
         )
+
+        Text(
+            text = "No signal, check the internet",
+            modifier = Modifier
+                .padding(top = 50.dp),
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
 
     }
 }

@@ -1,5 +1,6 @@
 package com.example.newsapp.domain.useCases
 
+import android.util.Log
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,7 +12,6 @@ class ExtractArticleTextUseCase @Inject constructor(
         return withContext(Dispatchers.IO) {
             try {
                 val doc = Jsoup.connect(url).get()
-
                 val articleElement = doc.select("article").first()
                     ?: doc.select("div[class*=content]").first()
                     ?: doc.body()
