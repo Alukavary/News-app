@@ -9,18 +9,19 @@ import com.example.newsapp.domain.model.ArticleModel
 @Composable
 
 fun ListViewForSearch(
-    data: List<ArticleModel>,
+    data: List<ArticleModel>?,
     navController: NavController,
 ) {
-    LazyColumn(
-        verticalArrangement = Arrangement.SpaceBetween
-    ) {
-
-        items(data.size) { item ->
-            ItemNews(
-                data[item],
-                navController,
-            )
+    if (data != null) {
+        LazyColumn(
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            items(data.size) { item ->
+                ItemNews(
+                    data[item],
+                    navController,
+                )
+            }
         }
     }
 }

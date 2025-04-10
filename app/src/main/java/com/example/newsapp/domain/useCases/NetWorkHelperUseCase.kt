@@ -1,12 +1,16 @@
-package com.example.newsapp.utils
+package com.example.newsapp.domain.useCases
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-object NetworkHelper {
+class NetworkHelper @Inject constructor(
+    @ApplicationContext private val context: Context
+) {
 
-    fun isNetworkAvailable(context:Context): Boolean{
+    fun isNetworkAvailable(): Boolean{
 
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -15,6 +19,5 @@ object NetworkHelper {
 
         return capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
     }
-
 
 }

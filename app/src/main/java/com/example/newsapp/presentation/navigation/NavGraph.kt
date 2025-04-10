@@ -33,9 +33,9 @@ fun NavGraph(
         composable(SEARCH_SCREEN_ROUTE) {
             SearchScreen(navController = navHostController)
         }
-        composable(SETTINGS_SCREEN_ROUTE) {
-            SettingsScreen()
-        }
+//        composable(SETTINGS_SCREEN_ROUTE) {
+//            SettingsScreen()
+//        }
         composable("${DETAILS_SCREEN_ROUTE}/{articleJson}"){backStackEntry->
             val json = backStackEntry.arguments?.getString("articleJson")
             val article = Json.decodeFromString<ArticleModel>(json!!)

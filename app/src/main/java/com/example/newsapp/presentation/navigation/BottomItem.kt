@@ -13,5 +13,5 @@ sealed class BottomItem(val title: String, val icon: Int, val route: String
     object MainNewsScreen: BottomItem(title = "news", icon = R.drawable.newspaper, route = MAIN_SCREEN_ROUTE)
     object FavoriteScreen: BottomItem(title = "favorite", icon = R.drawable.bookmark, route = FAVORITE_SCREEN_ROUTE)
     object SearchScreen: BottomItem(title = "search", icon = R.drawable.search, route = SEARCH_SCREEN_ROUTE)
-    object SettingsScreen: BottomItem(title = "settings", icon = R.drawable.baseline_settings_24, route = SETTINGS_SCREEN_ROUTE)
+//    object SettingsScreen: BottomItem(title = "settings", icon = R.drawable.baseline_settings_24, route = SETTINGS_SCREEN_ROUTE)
 }

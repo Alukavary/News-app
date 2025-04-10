@@ -49,7 +49,6 @@ fun CategoryRow(
         }
     }
 
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
