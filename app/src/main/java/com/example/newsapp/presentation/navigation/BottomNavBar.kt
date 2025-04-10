@@ -1,7 +1,5 @@
 package com.example.newsapp.presentation.navigation
 
-import android.net.http.SslCertificate.saveState
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -22,8 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newsapp.ui.theme.LightPrimary
 import com.example.newsapp.ui.theme.LightText
-import com.example.newsapp.utils.Constants.DETAILS_SCREEN_ROUTE
-
 
 @Composable
 fun BottomNavBar(
@@ -66,7 +62,6 @@ fun BottomNavBar(
                             else
                                 MaterialTheme.colorScheme.onBackground
                     )
-
                 },
                 label = {
                     if (currentRout == item.route) {
@@ -86,6 +81,5 @@ fun BottomNavBar(
             )
         }
     }
-
 }
 

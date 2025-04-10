@@ -1,12 +1,10 @@
 package com.example.newsapp.data.local.db
 
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.newsapp.data.models.Article
-import com.example.newsapp.data.models.api.NewsArticle
 import kotlinx.coroutines.flow.Flow
 
 

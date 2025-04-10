@@ -11,14 +11,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.newsapp.R
+import com.example.newsapp.domain.model.ArticleModel
 import com.example.newsapp.domain.model.ErrorType
 import com.example.newsapp.domain.model.UIState
 import com.example.newsapp.presentation.components.ErrorNetwork
 import com.example.newsapp.presentation.components.ErrorScreen
 import com.example.newsapp.presentation.components.ListViewForSearch
 import com.example.newsapp.presentation.components.LoadingScreen
+import com.example.newsapp.presentation.components.PullRefresh
 import com.example.newsapp.presentation.components.SearchCard
 import com.example.newsapp.presentation.components.Title
 
@@ -46,24 +49,20 @@ fun SearchScreen(
         SearchCard(
             icon = R.drawable.search
         )
+
         Column {
             when (val result = state) {
-                is UIState.Default -> {}
                 is UIState.Loading -> LoadingScreen()
                 is UIState.Success -> ListViewForSearch(data.value, navController)
+                is UIState.Default -> {}
                 is UIState.Error -> {
                     when (result.type) {
+                        ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetwork()
                         ErrorType.NETWORK_WITH_CACHE -> ListViewForSearch(
-                            result.data,
-                            navController
+                            result.data ?: emptyList(), navController
                         )
 
-                        ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetwork()
-                        ErrorType.OTHER_WITH_CACHE -> ListViewForSearch(result.data, navController)
-                        ErrorType.OTHER_WITHOUT_CACHE -> ErrorScreen(
-                            msg = result.msg,
-                            context = context
-                        )
+                        else -> ErrorScreen("Incorrect input try again", context = context)
                     }
                 }
             }

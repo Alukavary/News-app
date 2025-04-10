@@ -10,12 +10,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,12 +26,16 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsapp.ui.theme.LightPrimary
 
 @Preview(showBackground = true)
 @Composable
-fun SettingsScreen() {
-    var checked by rememberSaveable { mutableStateOf<Boolean>(false) }
+fun SettingsScreen(
+    viewModel: SettingsVM = hiltViewModel()
+) {
+    val mood by viewModel.moodType.collectAsState()
+    var checked by rememberSaveable { mutableStateOf<Boolean>(mood) }
 
     Column(
         modifier = Modifier
@@ -66,8 +70,10 @@ fun SettingsScreen() {
                         fontSize = 25.sp,
                     )
                     Switch(
-                        checked = checked,
-                        onCheckedChange = {
+                        checked = checked, onCheckedChange = {
+                            viewModel.toggleTheme(
+                                checked, viewModel.settingsDb
+                            )
                             checked = it
                         }, colors = SwitchDefaults.colors(
                             checkedThumbColor = LightPrimary,
@@ -78,6 +84,5 @@ fun SettingsScreen() {
 
             }
         }
-
     }
 }
