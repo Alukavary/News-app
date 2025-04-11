@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,32 +22,19 @@ fun LazyColumForNews(
     navController: NavController,
     viewModel: NewsVM = hiltViewModel()
 ) {
+    Log.d("MyLog", "LazyColumForNews")
 
     val generateList = viewModel.generateItem(data)
 
     LazyColumn(
         Modifier
             .fillMaxSize()
-            .padding(top = 40.dp)
+            .padding(top = 30.dp)
     ) {
-        Log.d("MyLog", " LazyColumForNews ${generateList.size}")
-
-        for (i in generateList.indices) {
+        items(generateList.size) { i ->
             when (generateList[i].type) {
-                ItemType.TYPE1 -> {
-                    item {
-                        ItemFavorite(
-                            item = generateList[i].item, navController = navController
-                        )
-                    }
-                }
-                else -> {
-                    item {
-                        ItemNews(
-                            item = generateList[i].item, navController = navController
-                        )
-                    }
-                }
+                ItemType.TYPE1 -> ItemFavorite(item = generateList[i].item, navController = navController)
+                else -> ItemNews(item = generateList[i].item, navController = navController)
             }
         }
     }

@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import java.sql.Timestamp
 
 @Serializable
-class ArticleModel(
+data class ArticleModel(
     val author: String,
     val content: String,
     val description: String,

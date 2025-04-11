@@ -27,7 +27,6 @@ class FavoriteVM @Inject constructor(
 
     val favoriteArticle: StateFlow<List<ArticleModel>> =
         localDb.getArticlesIsFavoriteFromDb()
-            .map { item -> item.map { it.toArticleModel() } }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.Lazily,

@@ -19,26 +19,25 @@ class SearchVM @Inject constructor(
     val newsUseCase: NewsUseCase
 ) : ViewModel() {
 
-    private var _data = MutableStateFlow<UIState<List<ArticleModel>>>(UIState.Default())
+    private var _data = MutableStateFlow<UIState<List<ArticleModel>>>(UIState.Default)
     val data = _data.asStateFlow()
 
-    val listData = data
-        .map { it ->
+    val listData = data.map { it ->
             when (it) {
                 is UIState.Success -> it.data
                 else -> emptyList()
             }
-        }
-        .stateIn(
+        }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = emptyList()
         )
 
-  fun loadingCategory(
+
+    fun loadingCategory(
         category: String,
     ) {
-        _data.value = UIState.Loading()
+        _data.value = UIState.Loading
         viewModelScope.launch {
             newsUseCase.invoke(category).collect {
                 _data.value = it

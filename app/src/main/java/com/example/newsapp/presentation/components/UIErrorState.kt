@@ -2,7 +2,6 @@ package com.example.newsapp.presentation.components
 
 import android.content.Context
 import android.widget.Toast
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -18,14 +17,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newsapp.R
 import com.example.newsapp.ui.theme.LightPrimary
-import java.nio.file.WatchEvent
+import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
 fun LoadingScreen() {
@@ -59,7 +57,8 @@ fun LoadingScreen() {
 
 @Composable
 fun ErrorScreen(
-    msg: String, context: Context
+    msg: String,
+    context: Context
 ) {
     ShowToast(context, msg)
 }
@@ -73,7 +72,7 @@ fun ShowToast(context: Context, message: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun ErrorNetwork(
+fun ErrorNetworkWithoutCache(
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -89,13 +88,11 @@ fun ErrorNetwork(
             modifier = Modifier.size(100.dp)
         )
         Text(
-            text = "No signal, check internet",
+            text = "No signal, check the internet",
             fontSize = 20.sp,
             color = LightPrimary,
             modifier = Modifier
                 .padding(top = 20.dp)
         )
-
-
     }
 }

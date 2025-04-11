@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NewsRepositoryLocal {
 
-    fun getArticlesByCategory(category: String): Flow<List<Article>>
+    fun getArticlesByCategory(category: String): Flow<List<ArticleModel>>
 
     suspend fun upsetCachedArticle(articles: List<Article>)
 
@@ -15,7 +15,7 @@ interface NewsRepositoryLocal {
 
     suspend fun deleteIsFavCategory(isFavorite: Boolean)
 
-    fun getArticlesIsFavoriteFromDb():Flow<List<Article>>
+    fun getArticlesIsFavoriteFromDb():Flow<List<ArticleModel>>
 
     suspend fun resetFavoriteFalse(isFavorite: Boolean, title:String)
 

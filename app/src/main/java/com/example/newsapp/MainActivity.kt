@@ -19,14 +19,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-//            val viewModel: SettingsVM = hiltViewModel()
-//            val isDark by viewModel.moodType.collectAsState()
-
-                NewsAppTheme(
-//                    darkTheme = isDark
-                ) {
-                    MainScreen()
+            NewsAppTheme() {
+                MainScreen()
             }
+
         }
     }
 }

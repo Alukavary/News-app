@@ -62,3 +62,17 @@ fun ArticleModel.toArticleDb(): Article {
     )
 }
 
+fun NewsArticle.toArticleModel(category:String): ArticleModel {
+    return ArticleModel(
+        title = title ?: "",
+        author = author ?: "",
+        content = content ?: "",
+        description = description ?: "",
+        url = url ?: "",
+        urlToImage = urlToImage ?: "",
+        category = category,
+        publishedAtFormatted = publishedAt.convertTime(),
+        isFavorite = false,
+    )
+}
+

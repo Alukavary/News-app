@@ -18,7 +18,6 @@ import com.example.newsapp.utils.Constants.MAIN_SCREEN_ROUTE
 @Composable
 
 fun MainScreen() {
-    Log.d("MyLog", " in  MainScreen")
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRout = backStackEntry?.destination?.route
@@ -27,11 +26,6 @@ fun MainScreen() {
         bottomBar = {
             if (currentRout != "$DETAILS_SCREEN_ROUTE/{articleJson}") {
                 BottomNavBar(navController = navController)
-            }
-        },
-                topBar = {
-            if (currentRout == MAIN_SCREEN_ROUTE) {
-                CategoryRow()
             }
         }
 
