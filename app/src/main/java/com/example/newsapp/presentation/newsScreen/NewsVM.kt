@@ -1,43 +1,18 @@
 package com.example.newsapp.presentation.newsScreen
 
-import android.util.Log
-import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.domain.model.ArticleModel
 import com.example.newsapp.domain.model.GenerateItem
 import com.example.newsapp.domain.model.ItemType
 import com.example.newsapp.domain.model.UIState
-import com.example.newsapp.domain.repository.SettingsRepository
 import com.example.newsapp.domain.useCases.NewsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import androidx.compose.runtime.getValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.example.newsapp.domain.repository.NewsRepositoryLocal
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -48,7 +23,7 @@ class NewsVM @Inject constructor(
     private var _isRefresh = MutableStateFlow<Boolean>(false)
     val isRefresh = _isRefresh.asStateFlow()
 
-    private var _data = MutableStateFlow<UIState<List<ArticleModel>>>(UIState.Default)
+    private var _data = MutableStateFlow<UIState<List<ArticleModel>>>(UIState.Empty)
     val data = _data.asStateFlow()
 
     private var _selectedCategory = MutableStateFlow<String>("Business")
@@ -91,9 +66,7 @@ class NewsVM @Inject constructor(
             newsUseCase.invoke(category).collect {
                 _data.value = it
                 _isRefresh.value = false
-
             }
-
         }
     }
 }

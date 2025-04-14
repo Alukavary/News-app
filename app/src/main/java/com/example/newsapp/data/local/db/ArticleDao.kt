@@ -8,12 +8,10 @@ import com.example.newsapp.data.models.Article
 import com.example.newsapp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface ArticleDao {
 
      @Query("SELECT * FROM article_cached WHERE category = :category")
-//     fun getArticlesByCategoryFromDb(category: String): Flow<List<Articled>>
      fun getArticlesByCategoryFromDb(category: String): Flow<List<ArticleModel>>
 
      @Insert(onConflict = OnConflictStrategy.IGNORE)

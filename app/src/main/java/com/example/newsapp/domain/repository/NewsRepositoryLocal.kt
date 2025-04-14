@@ -1,7 +1,6 @@
 package com.example.newsapp.domain.repository
 
 import com.example.newsapp.data.models.Article
-import com.example.newsapp.data.models.api.NewsArticle
 import com.example.newsapp.domain.model.ArticleModel
 import kotlinx.coroutines.flow.Flow
 
@@ -18,5 +17,4 @@ interface NewsRepositoryLocal {
     fun getArticlesIsFavoriteFromDb():Flow<List<ArticleModel>>
 
     suspend fun resetFavoriteFalse(isFavorite: Boolean, title:String)
-
 }

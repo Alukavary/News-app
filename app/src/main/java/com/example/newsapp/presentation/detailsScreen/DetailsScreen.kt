@@ -21,7 +21,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -39,20 +38,16 @@ import com.example.newsapp.ui.theme.LightPrimary
 import androidx.compose.runtime.getValue
 import com.example.newsapp.presentation.components.LazyColumArticle
 
-
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun DetailsScreen(
     data: ArticleModel, navController: NavController, viewModel: DetailsVM = hiltViewModel()
 ) {
-
     val text by viewModel.article.collectAsState()
-    Log.d("MyLog", "DetailsScreen $text")
 
     LaunchedEffect(Unit) {
         viewModel.loadingArticleText(data.url)
     }
-
     Column(
         modifier = Modifier
             .fillMaxSize()

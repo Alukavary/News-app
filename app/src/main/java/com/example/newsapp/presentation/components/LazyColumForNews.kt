@@ -1,13 +1,9 @@
 package com.example.newsapp.presentation.components
 
-import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,8 +18,6 @@ fun LazyColumForNews(
     navController: NavController,
     viewModel: NewsVM = hiltViewModel()
 ) {
-    Log.d("MyLog", "LazyColumForNews")
-
     val generateList = viewModel.generateItem(data)
 
     LazyColumn(
@@ -33,7 +27,10 @@ fun LazyColumForNews(
     ) {
         items(generateList.size) { i ->
             when (generateList[i].type) {
-                ItemType.TYPE1 -> ItemFavorite(item = generateList[i].item, navController = navController)
+                ItemType.TYPE1 -> ItemFavorite(
+                    item = generateList[i].item,
+                    navController = navController
+                )
                 else -> ItemNews(item = generateList[i].item, navController = navController)
             }
         }

@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.components
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.layout.size
@@ -49,3 +48,4 @@ fun LikeCustomButton(
         )
     }
 }
+

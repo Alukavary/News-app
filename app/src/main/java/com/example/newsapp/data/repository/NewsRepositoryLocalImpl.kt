@@ -5,7 +5,6 @@ import com.example.newsapp.data.models.Article
 import com.example.newsapp.domain.model.ArticleModel
 import com.example.newsapp.domain.repository.NewsRepositoryLocal
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class NewsRepositoryLocalImpl @Inject constructor(

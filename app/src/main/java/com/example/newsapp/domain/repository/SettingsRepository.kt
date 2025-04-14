@@ -8,9 +8,7 @@ interface SettingsRepository {
     val newsFilter: Flow<String>
     val screenRout: Flow<String>
 
-
     suspend fun saveDarkMode(isDarkMode: Boolean)
     suspend fun saveFilter(categoryFilter: String)
     suspend fun saveScreenRout(rout: String)
-
 }

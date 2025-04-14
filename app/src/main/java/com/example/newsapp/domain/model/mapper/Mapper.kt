@@ -1,9 +1,6 @@
 package com.example.newsapp.domain.model.mapper
 
-import android.util.Log
-import com.example.newsapp.R
 import com.example.newsapp.data.models.Article
-import com.example.newsapp.data.models.api.Source
 import com.example.newsapp.data.models.api.NewsArticle
 import com.example.newsapp.domain.model.ArticleModel
 import java.text.SimpleDateFormat
@@ -23,7 +20,7 @@ fun NewsArticle.toArticleDb(category: String,
         url = url ?: "",
         urlToImage = urlToImage ?: "",
         category = category,
-        publishedAtFormatted = publishedAt.convertTime(),
+        publishedAtFormatted = publishedAt?.convertTime() ?: "",
         isFavorite = false,
     )
 }
@@ -34,6 +31,7 @@ private fun String.convertTime(): String {
     return outputFormat.format(inputFormat.parse(this))
 }
 
+@Suppress("unused") // needs for future changes
 fun Article.toArticleModel(): ArticleModel {
     return ArticleModel(
         author = author,
@@ -48,6 +46,7 @@ fun Article.toArticleModel(): ArticleModel {
     )
 }
 
+@Suppress("unused") // needs for future changes
 fun ArticleModel.toArticleDb(): Article {
     return Article(
         author = author,
@@ -62,6 +61,7 @@ fun ArticleModel.toArticleDb(): Article {
     )
 }
 
+@Suppress("unused") // needs for future changes
 fun NewsArticle.toArticleModel(category:String): ArticleModel {
     return ArticleModel(
         title = title ?: "",
@@ -71,8 +71,7 @@ fun NewsArticle.toArticleModel(category:String): ArticleModel {
         url = url ?: "",
         urlToImage = urlToImage ?: "",
         category = category,
-        publishedAtFormatted = publishedAt.convertTime(),
+        publishedAtFormatted = publishedAt?.convertTime() ?: "",
         isFavorite = false,
     )
 }
-

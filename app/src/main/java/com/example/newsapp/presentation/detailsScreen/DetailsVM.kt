@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.detailsScreen
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.domain.model.ArticleModel

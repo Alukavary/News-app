@@ -3,37 +3,28 @@ package com.example.newsapp.presentation.settingsScreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.newsapp.domain.repository.SettingsRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class SettingsVM @Inject constructor(
     val settingsDb: SettingsRepository
 ) : ViewModel() {
 
-    private var _moodType = MutableStateFlow<Boolean>(false)
-    val moodType = _moodType.asStateFlow()
-
-    init {
-        getMood(settingsDb)
-    }
-
-    fun getMood(
-        settingsDb: SettingsRepository
-    ) {
-        viewModelScope.launch {
-            _moodType.value = settingsDb.darkMode.first()
-        }
-
-    }
+    val moodType: StateFlow<Boolean> = settingsDb.darkMode
+        .stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            false)
 
     fun toggleTheme(
         isDark: Boolean,
         settingsDb: SettingsRepository
     ) {
-        _moodType.value = !isDark
         viewModelScope.launch {
             settingsDb.saveDarkMode(!isDark)
         }

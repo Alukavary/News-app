@@ -34,7 +34,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 50.dp, bottom = 70.dp)
+            .padding(top = 50.dp, bottom = 120.dp)
     ) {
         Row(
             modifier = Modifier
@@ -46,12 +46,11 @@ fun SearchScreen(
         SearchCard(
             icon = R.drawable.search
         )
-
         Column {
             when (val result = state) {
                 is UIState.Loading -> LoadingScreen()
                 is UIState.Success -> ListViewForSearch(result.data, navController)
-                is UIState.Default -> {}
+                is UIState.Empty -> {}
                 is UIState.Error -> {
                     when (result.type) {
                         ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetworkWithoutCache()

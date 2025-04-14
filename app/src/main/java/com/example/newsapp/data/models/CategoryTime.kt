@@ -9,5 +9,5 @@ class CategoryTime (
     @PrimaryKey
     val category: String,
     val lastFetchedMillis: Long
-
 )
+

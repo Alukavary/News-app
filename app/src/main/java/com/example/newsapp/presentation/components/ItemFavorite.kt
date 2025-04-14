@@ -5,12 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -39,15 +36,12 @@ import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.newsapp.domain.model.ArticleModel
 
-
-@Preview(showBackground = true)
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun ItemFavorite(
     item: ArticleModel,
     navController: NavController,
 ) {
-
     var isClicked by remember { mutableStateOf<Boolean>(false) }
 
     Box(
@@ -56,18 +50,21 @@ fun ItemFavorite(
             .size(300.dp)
             .padding(bottom = 8.dp)
     ) {
-
         Box(
             modifier = Modifier
                 .background(Color.Black)
                 .alpha(0.5F)
-                .clickable(onClick = {
-                    isClicked = true
-                    val json = Uri.encode(Json.encodeToString(ArticleModel.serializer(), item))
-                    navController.navigate("$DETAILS_SCREEN_ROUTE/$json")
-                }),
-        )
-        {
+                .clickable(
+                    onClick = {
+                        isClicked = true
+                        val json = Uri.encode(
+                            Json.encodeToString(
+                                ArticleModel.serializer(), item
+                            )
+                        )
+                        navController.navigate("$DETAILS_SCREEN_ROUTE/$json")
+                    }),
+        ) {
             GlideImage(
                 model = item.urlToImage,
                 contentDescription = null,
@@ -82,7 +79,6 @@ fun ItemFavorite(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(horizontal = 20.dp)
-
         ) {
             Text(
                 text = item.title,
@@ -98,8 +94,7 @@ fun ItemFavorite(
                         blurRadius = 3f
                     )
                 ),
-                modifier = Modifier
-                    .padding(bottom = 20.dp)
+                modifier = Modifier.padding(bottom = 20.dp)
             )
         }
         Text(

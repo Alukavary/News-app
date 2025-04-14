@@ -1,15 +1,11 @@
 package com.example.newsapp.presentation.newsScreen
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -23,8 +19,6 @@ import com.example.newsapp.presentation.components.ErrorScreen
 import com.example.newsapp.presentation.components.LazyColumForNews
 import com.example.newsapp.presentation.components.LoadingScreen
 import com.example.newsapp.presentation.components.PullRefresh
-import com.example.newsapp.presentation.searchScreen.SearchVM
-
 
 @Composable
 fun NewsScreen(
@@ -37,13 +31,10 @@ fun NewsScreen(
     val isRefresh by viewModel.isRefresh.collectAsState()
     val state by viewModel.data.collectAsState()
 
-
     PullRefresh(
         isRefreshing = isRefresh,
-//        onRefresh = { viewModel.loadingCategory(category.toString()) }
         onRefresh = { viewModel.isRefreshData(category.toString()) }
     ) {
-
         CategoryRow(
             selectedCategory = category,
             onClick = { newCategory ->
@@ -52,19 +43,18 @@ fun NewsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 50.dp, bottom = 70.dp),
+                .padding(top = 50.dp, bottom = 120.dp),
         ) {
             when (val result = state) {
                 is UIState.Loading -> LoadingScreen()
                 is UIState.Success -> LazyColumForNews(result.data, navController)
-                is UIState.Default -> {}
+                is UIState.Empty -> {} // todo
                 is UIState.Error -> {
                     when (result.type) {
                         ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetworkWithoutCache()
                         ErrorType.NETWORK_WITH_CACHE -> LazyColumForNews(
                             result.data ?: emptyList(), navController
                         )
-
                         else -> ErrorScreen("Incorrect input try again", context = context)
                     }
                 }

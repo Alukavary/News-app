@@ -18,11 +18,10 @@ import kotlin.String
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.LaunchedEffect
 
-
 @Composable
 fun CategoryRow(
-    selectedCategory:String,
-    onClick: (String)-> Unit
+    selectedCategory: String,
+    onClick: (String) -> Unit
 ) {
     val listState = rememberLazyListState()
 
@@ -37,7 +36,7 @@ fun CategoryRow(
     )
 
     LaunchedEffect(selectedCategory) {
-        val index = itemList.indexOfFirst { it.category == selectedCategory}
+        val index = itemList.indexOfFirst { it.category == selectedCategory }
         if (index >= 0) {
             listState.animateScrollToItem(index)
         }

@@ -25,5 +25,4 @@ interface NewsApi {
 
     ): NewsResponseDto
 
-
 }

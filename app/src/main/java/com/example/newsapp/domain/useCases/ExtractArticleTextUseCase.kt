@@ -6,9 +6,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
 
-class ExtractArticleTextUseCase @Inject constructor(
-) {
-    suspend operator fun invoke (url: String): String{
+class ExtractArticleTextUseCase @Inject constructor() {
+
+    suspend operator fun invoke(url: String): String {
         return withContext(Dispatchers.IO) {
             try {
                 val doc = Jsoup.connect(url).get()

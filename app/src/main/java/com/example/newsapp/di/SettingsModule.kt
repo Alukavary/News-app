@@ -26,7 +26,6 @@ object SettingsModule {
         return context.dataStore
     }
 
-
     @Provides
     @Singleton
     fun providerSettingsRepository(

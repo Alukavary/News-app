@@ -7,7 +7,6 @@ import androidx.navigation.NavController
 import com.example.newsapp.domain.model.ArticleModel
 
 @Composable
-
 fun ListViewForSearch(
     data: List<ArticleModel>?,
     navController: NavController,

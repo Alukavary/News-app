@@ -42,13 +42,11 @@ import kotlinx.serialization.json.Json
 
 
 @OptIn(ExperimentalGlideComposeApi::class)
-@Preview(showBackground = true)
 @Composable
 fun ItemNews(
     item: ArticleModel,
     navController: NavController,
 ) {
-
     var isClicked by remember { mutableStateOf<Boolean>(false) }
 
     Card(
@@ -71,7 +69,6 @@ fun ItemNews(
         ) {
             GlideImage(
                 model = item.urlToImage,
-//                model = R.drawable.fake_news_icon,
                 contentDescription = "",
                 modifier = Modifier
                     .height(170.dp)
@@ -122,7 +119,6 @@ fun ItemNews(
             }
         }
     }
-
 }
 
 

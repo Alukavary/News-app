@@ -29,7 +29,7 @@ fun BottomNavBar(
         BottomItem.MainNewsScreen,
         BottomItem.FavoriteScreen,
         BottomItem.SearchScreen,
-//        BottomItem.SettingsScreen
+        BottomItem.SettingsScreen
     )
     NavigationBar(
         modifier = Modifier

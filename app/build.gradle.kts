@@ -2,11 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-//    id("com.google.dagger.hilt.android")
+
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 
-//    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
     kotlin("plugin.serialization") version "1.9.10"
 
 
@@ -118,6 +117,10 @@ dependencies {
 
 //    jsoup
     implementation ("org.jsoup:jsoup:1.16.1")
+
+    //splash
+    implementation("androidx.core:core-splashscreen:1.0.1")
+
 
 
 

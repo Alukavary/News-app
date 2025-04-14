@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.components
 
-import androidx.compose.foundation.Indication
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -15,9 +14,9 @@ import com.example.newsapp.ui.theme.LightPrimary
 @Composable
 fun PullRefresh(
     isRefreshing: Boolean,
-    onRefresh: ()-> Unit,
-    content: @Composable ()-> Unit
-){
+    onRefresh: () -> Unit,
+    content: @Composable () -> Unit
+) {
     val state = rememberPullToRefreshState()
 
     PullToRefreshBox(

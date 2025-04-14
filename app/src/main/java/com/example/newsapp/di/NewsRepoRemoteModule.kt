@@ -1,6 +1,5 @@
 package com.example.newsapp.di
 
-import com.example.newsapp.data.local.db.ArticleDao
 import com.example.newsapp.data.remote.api.NewsApi
 import com.example.newsapp.data.repository.NewsRepositoryRemoteImpl
 import com.example.newsapp.domain.repository.NewsRepositoryRemote
@@ -27,8 +26,7 @@ object NewsRepoRemoteModule {
     @Singleton
     fun providerNewsRepositoryRemote(
         api: NewsApi,
-        dao: ArticleDao
     ): NewsRepositoryRemote {
-        return NewsRepositoryRemoteImpl(api,dao)
+        return NewsRepositoryRemoteImpl(api)
     }
 }

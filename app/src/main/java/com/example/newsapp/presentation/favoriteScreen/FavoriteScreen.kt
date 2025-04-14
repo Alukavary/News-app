@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.favoriteScreen
 
-
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +28,7 @@ fun FavoriteScreen(
 
     Column(
         modifier = Modifier
-            .padding(top = 50.dp, bottom = 70.dp)
+            .padding(top = 50.dp, bottom = 120.dp)
             .fillMaxSize()
     ) {
         Row(

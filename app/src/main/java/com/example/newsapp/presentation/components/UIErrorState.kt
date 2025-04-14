@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.newsapp.R
 import com.example.newsapp.ui.theme.LightPrimary
-import dagger.hilt.android.qualifiers.ApplicationContext
 
 @Composable
 fun LoadingScreen() {
@@ -48,12 +47,10 @@ fun LoadingScreen() {
             CircularProgressIndicator(
                 color = LightPrimary,
                 modifier = Modifier.padding(10.dp),
-
-                )
+            )
         }
     }
 }
-
 
 @Composable
 fun ErrorScreen(
@@ -61,13 +58,6 @@ fun ErrorScreen(
     context: Context
 ) {
     ShowToast(context, msg)
-}
-
-
-@Composable
-fun ShowToast(context: Context, message: String) {
-    val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
-    toast.show()
 }
 
 @Preview(showBackground = true)
@@ -80,7 +70,6 @@ fun ErrorNetworkWithoutCache(
             .fillMaxSize()
             .padding(top = 150.dp)
     ) {
-
         Icon(
             painter = painterResource(id = R.drawable.signal_error),
             contentDescription = "icon",
@@ -95,4 +84,10 @@ fun ErrorNetworkWithoutCache(
                 .padding(top = 20.dp)
         )
     }
+}
+
+@Composable
+fun ShowToast(context: Context, message: String) {
+    val toast = Toast.makeText(context, message, Toast.LENGTH_SHORT)
+    toast.show()
 }

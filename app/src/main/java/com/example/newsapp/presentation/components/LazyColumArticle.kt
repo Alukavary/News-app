@@ -18,15 +18,13 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
-import androidx.room.util.TableInfo
 import com.example.newsapp.domain.model.ArticleModel
 
 @Composable
 fun LazyColumArticle(
     articleContext: String,
     data: ArticleModel,
-
-    ) {
+) {
     val context = LocalContext.current
 
     LazyColumn(
@@ -66,9 +64,7 @@ fun LazyColumArticle(
                             context.startActivity(intent)
                         })
                 }
-
             }
         }
-
     }
 }

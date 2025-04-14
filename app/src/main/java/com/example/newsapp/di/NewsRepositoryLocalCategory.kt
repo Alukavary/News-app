@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.example.newsapp.data.local.dbCachedTime.CategoryTimeDao
 import com.example.newsapp.data.local.dbCachedTime.NewsCategoryFetchTimeDatabase
-import com.example.newsapp.data.repository.NewsCategoryFetchTimeImpl
-import com.example.newsapp.domain.repository.NewsCategoryFetchTime
+import com.example.newsapp.data.repository.NewsRepositoryLocalCategoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,10 +12,9 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(SingletonComponent::class)
-object NewsCategoryFetchModule {
+object NewsRepositoryLocalCategory {
 
     @Provides
     @Singleton
@@ -37,7 +35,7 @@ object NewsCategoryFetchModule {
     @Singleton
     fun providerNewsReposFetchTime(
         db: NewsCategoryFetchTimeDatabase
-    ): NewsCategoryFetchTime {
-        return NewsCategoryFetchTimeImpl(db)
+    ): com.example.newsapp.domain.repository.NewsRepositoryLocalCategory {
+        return NewsRepositoryLocalCategoryImpl(db)
     }
 }

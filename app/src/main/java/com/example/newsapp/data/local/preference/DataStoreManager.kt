@@ -13,7 +13,6 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("data_store")
 
 class DataStoreManager @Inject constructor(@ApplicationContext context: Context) {
@@ -37,7 +36,6 @@ class DataStoreManager @Inject constructor(@ApplicationContext context: Context)
         }
     }
 
-
     val newsFilter: Flow<String> = dataStore.data.map { pref ->
         pref[FILTER_KEY] ?: "general"
     }
@@ -48,7 +46,6 @@ class DataStoreManager @Inject constructor(@ApplicationContext context: Context)
         }
     }
 
-
     val screenRout: Flow<String> = dataStore.data.map { pref ->
         pref[SCREEN_ROUT] ?: MAIN_SCREEN_ROUTE
     }
@@ -58,6 +55,4 @@ class DataStoreManager @Inject constructor(@ApplicationContext context: Context)
             pref[SCREEN_ROUT] = rout
         }
     }
-
-
 }

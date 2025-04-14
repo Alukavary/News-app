@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import com.example.newsapp.data.local.db.ArticleDatabase
 import com.example.newsapp.data.models.CategoryTime
 
-
 @Database(
     entities = [CategoryTime::class], version = 1
 )
