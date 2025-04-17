@@ -24,7 +24,7 @@ class SearchVM @Inject constructor(
     ) {
         _data.value = UIState.Loading
         viewModelScope.launch {
-            newsUseCase.invoke(category).collect {
+            newsUseCase.invokeSearchNews(category).collect {
                 _data.value = it
             }
         }

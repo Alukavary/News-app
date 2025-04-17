@@ -34,7 +34,7 @@ class FavoriteVM @Inject constructor(
         localDb: NewsRepositoryLocal
     ) {
         viewModelScope.launch {
-            localDb.deleteIsFavCategory(isFavorite = true)
+            localDb.deleteIsFavCategory()
         }
     }
 }

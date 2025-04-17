@@ -1,6 +1,5 @@
 package com.example.newsapp.presentation.detailsScreen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +40,9 @@ import com.example.newsapp.presentation.components.LazyColumArticle
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun DetailsScreen(
-    data: ArticleModel, navController: NavController, viewModel: DetailsVM = hiltViewModel()
+    data: ArticleModel,
+    navController: NavController,
+    viewModel: DetailsVM = hiltViewModel()
 ) {
     val text by viewModel.article.collectAsState()
 
@@ -74,13 +75,13 @@ fun DetailsScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp, top = 10.dp)
-            ) {
-                CustomIconButton(
-                    onClick = {
-                        navController.popBackStack()
-                    },
-                    icon = R.drawable.arrow_back,
-                )
+            ) { CustomIconButton(
+                onClick = {
+                    navController.popBackStack()
+                },
+                icon = R.drawable.arrow_back,
+            )
+
             }
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,

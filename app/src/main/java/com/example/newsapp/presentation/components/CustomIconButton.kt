@@ -25,7 +25,6 @@ fun CustomIconButton(
             onClick.invoke()
             isClicked = true
         }
-
     ) {
         Icon(
             painter = painterResource(id = icon),

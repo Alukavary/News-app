@@ -32,7 +32,7 @@ class NewsRepositoryLocalImpl @Inject constructor(
         db.getArticleDao().deleteCachedCategory(category)
     }
 
-    override suspend fun deleteIsFavCategory(isFavorite: Boolean) {
-        db.getArticleDao().deleteIsFavCategory(isFavorite)
+    override suspend fun deleteIsFavCategory() {
+        db.getArticleDao().deleteIsFavCategory()
     }
 }

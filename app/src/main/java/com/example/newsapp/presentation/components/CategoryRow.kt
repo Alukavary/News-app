@@ -12,11 +12,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.newsapp.data.models.NewsCategory
 import com.example.newsapp.ui.theme.LightPrimary
 import kotlin.String
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.LaunchedEffect
+import com.example.newsapp.domain.model.itemList
 
 @Composable
 fun CategoryRow(
@@ -25,23 +25,12 @@ fun CategoryRow(
 ) {
     val listState = rememberLazyListState()
 
-    val itemList = listOf(
-        NewsCategory("Business"),
-        NewsCategory("Entertainment"),
-        NewsCategory("General"),
-        NewsCategory("Health"),
-        NewsCategory("Science"),
-        NewsCategory("Sports"),
-        NewsCategory("Technology"),
-    )
-
     LaunchedEffect(selectedCategory) {
         val index = itemList.indexOfFirst { it.category == selectedCategory }
         if (index >= 0) {
             listState.animateScrollToItem(index)
         }
     }
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -58,6 +47,7 @@ fun CategoryRow(
                 onClick = {
                     if (item.category != selectedCategory) {
                         onClick.invoke(item.category)
+
                     }
                 },
                 isSelected = selectedCategory == item.category,

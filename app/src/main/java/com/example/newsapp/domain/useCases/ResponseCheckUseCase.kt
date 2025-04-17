@@ -9,7 +9,15 @@ import javax.inject.Inject
 class NewsUseCase @Inject constructor(
     private val repository: ResponseCheckRepository
 ) {
-    operator fun invoke(category: String): Flow<UIState<List<ArticleModel>>> {
-        return repository.getNewsByCategory(category)
+    fun observe(category: String): Flow<UIState<List<ArticleModel>>> {
+        return repository.observerCategory(category)
+    }
+
+    suspend fun invokeSearchNews(category: String): Flow<UIState<List<ArticleModel>>> {
+        return repository.searchNews(category)
+    }
+
+    suspend fun refresh (category: String){
+        repository.refreshNews(category)
     }
 }

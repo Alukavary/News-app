@@ -10,18 +10,17 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
-
      @Query("SELECT * FROM article_cached WHERE category = :category")
      fun getArticlesByCategoryFromDb(category: String): Flow<List<ArticleModel>>
 
      @Insert(onConflict = OnConflictStrategy.IGNORE)
      suspend fun upsetCachedArticle(articles: List<Article>)
 
-     @Query("DELETE FROM article_cached WHERE category = :category")
+     @Query("DELETE FROM article_cached WHERE category = :category AND isFavorite = 0")
      suspend fun deleteCachedCategory(category: String)
 
-     @Query("DELETE FROM article_cached WHERE isFavorite = :isFavorite")
-     suspend fun deleteIsFavCategory(isFavorite: Boolean)
+     @Query("UPDATE article_cached SET isFavorite = 0 WHERE isFavorite = 1")
+     suspend fun deleteIsFavCategory()
 
      @Query("UPDATE article_cached SET isFavorite = :isFavorite WHERE title = :title")
      suspend fun resetFavoriteFalse(isFavorite: Boolean, title: String)

@@ -25,7 +25,6 @@ fun NewsScreen(
     navController: NavController,
     viewModel: NewsVM = hiltViewModel(),
 ) {
-
     val context = LocalContext.current
     val category by viewModel.selectedCategory.collectAsState()
     val isRefresh by viewModel.isRefresh.collectAsState()
@@ -33,7 +32,7 @@ fun NewsScreen(
 
     PullRefresh(
         isRefreshing = isRefresh,
-        onRefresh = { viewModel.isRefreshData(category.toString()) }
+        onRefresh = { viewModel.refreshData(category.toString()) }
     ) {
         CategoryRow(
             selectedCategory = category,
@@ -48,7 +47,7 @@ fun NewsScreen(
             when (val result = state) {
                 is UIState.Loading -> LoadingScreen()
                 is UIState.Success -> LazyColumForNews(result.data, navController)
-                is UIState.Empty -> {} // todo
+                is UIState.Empty -> {}
                 is UIState.Error -> {
                     when (result.type) {
                         ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetworkWithoutCache()
