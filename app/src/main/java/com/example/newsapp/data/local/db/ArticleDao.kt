@@ -20,8 +20,8 @@ interface ArticleDao {
      @Query("DELETE FROM article_cached WHERE category = :category")
      suspend fun deleteCachedCategory(category: String)
 
-     @Query("DELETE FROM article_cached WHERE isFavorite = :isFavorite")
-     suspend fun deleteIsFavCategory(isFavorite: Boolean)
+     @Query("UPDATE article_cached SET isFavorite = 0 WHERE isFavorite = 1")
+     suspend fun deleteIsFavCategory()
 
      @Query("UPDATE article_cached SET isFavorite = :isFavorite WHERE title = :title")
      suspend fun resetFavoriteFalse(isFavorite: Boolean, title: String)

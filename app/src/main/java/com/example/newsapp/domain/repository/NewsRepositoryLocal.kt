@@ -12,7 +12,7 @@ interface NewsRepositoryLocal {
 
     suspend fun deleteCachedCategory(category:String)
 
-    suspend fun deleteIsFavCategory(isFavorite: Boolean)
+    suspend fun deleteIsFavCategory()
 
     fun getArticlesIsFavoriteFromDb():Flow<List<ArticleModel>>
 
