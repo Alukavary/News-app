@@ -14,7 +14,6 @@ import com.example.newsapp.domain.useCases.NewsFetchTimeUseCase
 import com.example.newsapp.domain.repository.ResponseCheckRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -24,23 +23,17 @@ class ResponseCheckRepositoryImpl @Inject constructor(
     val localDbCached: NewsRepositoryLocal,
     val remoteRepository: NewsRepositoryRemote,
     val localDbFetchTime: NewsFetchTimeUseCase,
-    val networkHelper: NetworkHelper
-    ,
+    val networkHelper: NetworkHelper,
 ) : ResponseCheckRepository {
+
     override fun observerCategory(category: String): Flow<UIState<List<ArticleModel>>> {
-        Log.d("MyLog", "getNewsByCategory")
-        return localDbCached.getArticlesByCategory(category)
-            .map { list ->
+        return localDbCached.getArticlesByCategory(category).map { list ->
                 if (list.isEmpty()) {
                     UIState.Loading
                 } else {
-                    Log.d("MyLog", "getNewsByCategory ${list.size}")
-
                     UIState.Success(list)
-
                 }
-            }
-            .catch { e ->
+            }.catch { e ->
                 emit(
                     UIState.Error(
                         msg = "Ups, incorrect input, try again",
@@ -54,12 +47,9 @@ class ResponseCheckRepositoryImpl @Inject constructor(
         if (networkHelper.isNetworkAvailable()) {
             if (localDbFetchTime.shouldFetch(category)) {
                 localDbCached.getArticlesByCategory(category)
-                Log.d("MyLog", "добавляем новую дату")
                 val response = remoteRepository.getNewsByCategory(category, 1)
-                Log.d("MyLog", "добавляем новую дату ${response.articles.size}")
                 localDbCached.upsetCachedArticle(
-                    response.articles.map { it.toArticleDb(category) }
-                )
+                    response.articles.map { it.toArticleDb(category) })
                 localDbFetchTime.db.saveLastCategoryTime(
                     CategoryTime(category, System.currentTimeMillis())
                 )
@@ -78,8 +68,7 @@ class ResponseCheckRepositoryImpl @Inject constructor(
             } catch (e: Exception) {
                 emit(
                     UIState.Error(
-                        "Ups, incorrect input, try again",
-                        type = ErrorType.OTHER_WITHOUT_CACHE
+                        "Ups, incorrect input, try again", type = ErrorType.OTHER_WITHOUT_CACHE
                     )
                 )
             }

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
+import com.example.newsapp.R
 import com.example.newsapp.domain.model.ArticleModel
 
 @Composable
@@ -22,5 +23,9 @@ fun ListViewForSearch(
                 )
             }
         }
+    } else{
+        CustomEmptyList(
+            icon = R.drawable.search_off_24,
+            text = "Nothing found")
     }
 }

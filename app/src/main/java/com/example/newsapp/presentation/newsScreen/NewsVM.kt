@@ -30,7 +30,6 @@ class NewsVM @Inject constructor(
     val newsUseCase: NewsUseCase,
 ) : ViewModel() {
 
-
     private var _isRefresh = MutableStateFlow<Boolean>(false)
     val isRefresh = _isRefresh.asStateFlow()
 

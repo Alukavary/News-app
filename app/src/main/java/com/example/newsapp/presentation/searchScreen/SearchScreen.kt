@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.ErrorType
 import com.example.newsapp.domain.model.UIState
-import com.example.newsapp.presentation.components.ErrorNetworkWithoutCache
+import com.example.newsapp.presentation.components.CustomEmptyList
 import com.example.newsapp.presentation.components.ErrorScreen
 import com.example.newsapp.presentation.components.ListViewForSearch
 import com.example.newsapp.presentation.components.LoadingScreen
@@ -53,9 +53,9 @@ fun SearchScreen(
                 is UIState.Empty -> {}
                 is UIState.Error -> {
                     when (result.type) {
-                        ErrorType.NETWORK_WITHOUT_CACHE -> ErrorNetworkWithoutCache()
-                        ErrorType.NETWORK_WITH_CACHE -> ListViewForSearch(
-                            result.data ?: emptyList(), navController
+                        ErrorType.NETWORK_WITHOUT_CACHE -> CustomEmptyList(
+                            icon = R.drawable.signal_error,
+                            text = "No signal, check the internet"
                         )
 
                         else -> ErrorScreen("Incorrect input try again", context = context)

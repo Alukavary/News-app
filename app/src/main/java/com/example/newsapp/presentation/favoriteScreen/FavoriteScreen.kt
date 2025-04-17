@@ -16,6 +16,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.newsapp.R
 import com.example.newsapp.presentation.components.CustomIconButton
+import com.example.newsapp.presentation.components.CustomEmptyList
 import com.example.newsapp.presentation.components.ItemFavorite
 import com.example.newsapp.presentation.components.Title
 
@@ -43,13 +44,20 @@ fun FavoriteScreen(
                 icon = R.drawable.baseline_restore_from_trash_24
             )
         }
-        LazyColumn(
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            items(data.size) { item ->
-                ItemFavorite(
-                    data[item], navController = navController
-                )
+        if (data.isEmpty()) {
+            CustomEmptyList(
+                icon = R.drawable.bookmark_favorite,
+                text = "Add articles"
+            )
+        } else {
+            LazyColumn(
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                items(data.size) { item ->
+                    ItemFavorite(
+                        data[item], navController = navController
+                    )
+                }
             }
         }
     }
