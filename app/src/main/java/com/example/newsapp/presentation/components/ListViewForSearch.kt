@@ -12,7 +12,7 @@ fun ListViewForSearch(
     data: List<ArticleModel>?,
     navController: NavController,
 ) {
-    if (data != null) {
+    if (data?.isNotEmpty() == true) {
         LazyColumn(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
