@@ -28,34 +28,40 @@ class ResponseCheckRepositoryImpl @Inject constructor(
 
     override fun observerCategory(category: String): Flow<UIState<List<ArticleModel>>> {
         return localDbCached.getArticlesByCategory(category).map { list ->
-                if (list.isEmpty()) {
-                    UIState.Loading
-                } else {
-                    UIState.Success(list)
-                }
-            }.catch { e ->
-                emit(
-                    UIState.Error(
-                        msg = "Ups, incorrect input, try again",
-                        type = ErrorType.OTHER_WITHOUT_CACHE
-                    )
-                )
+            if (list.isEmpty()) {
+                UIState.Loading
+            } else {
+                UIState.Success(list)
             }
+        }.catch { e ->
+            emit(
+                UIState.Error(
+                    msg = "Ups, incorrect input, try again",
+                    type = ErrorType.OTHER_WITHOUT_CACHE
+                )
+            )
+        }
     }
 
     override suspend fun refreshNews(category: String) {
-        if (networkHelper.isNetworkAvailable()) {
-            if (localDbFetchTime.shouldFetch(category)) {
-                localDbCached.getArticlesByCategory(category)
-                val response = remoteRepository.getNewsByCategory(category, 1)
-                localDbCached.upsetCachedArticle(
-                    response.articles.map { it.toArticleDb(category) })
-                localDbFetchTime.db.saveLastCategoryTime(
-                    CategoryTime(category, System.currentTimeMillis())
-                )
+        try {
+            if (networkHelper.isNetworkAvailable()) {
+                if (localDbFetchTime.shouldFetch(category)) {
+                    localDbCached.getArticlesByCategory(category)
+                    localDbCached.deleteCachedCategory(category)
+                    val response = remoteRepository.getNewsByCategory(category, 1)
+                    localDbCached.upsetCachedArticle(
+                        response.articles.map { it.toArticleDb(category) })
+                    localDbFetchTime.db.saveLastCategoryTime(
+                        CategoryTime(category, System.currentTimeMillis())
+                    )
+
+                }
             }
-        }
+        } catch (e: Exception) {
+        localDbCached.getArticlesByCategory(category)
     }
+}
 
     override suspend fun searchNews(category: String): Flow<UIState<List<ArticleModel>>> = flow {
         emit(UIState.Loading)
