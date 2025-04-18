@@ -121,6 +121,9 @@ dependencies {
     //splash
     implementation("androidx.core:core-splashscreen:1.0.1")
 
+    debugImplementation ("com.github.chuckerteam.chucker:library:4.1.0")
+    releaseImplementation ("com.github.chuckerteam.chucker:library-no-op:4.1.0")
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.newsapp.presentation.newsScreen
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -44,6 +45,7 @@ fun NewsScreen(
                 .fillMaxSize()
                 .padding(top = 50.dp, bottom = 120.dp),
         ) {
+
             when (val result = state) {
                 is UIState.Loading -> LoadingScreen()
                 is UIState.Success -> LazyColumForNews(result.data, navController)

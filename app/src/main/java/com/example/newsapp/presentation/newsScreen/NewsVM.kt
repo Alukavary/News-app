@@ -89,8 +89,8 @@ class NewsVM @Inject constructor(
     ) {
         _selectedCategory.value = category
         viewModelScope.launch {
-            newsUseCase.refresh(category)
             _refreshTrigger.emit(category)
+            newsUseCase.refresh(category)
         }
     }
 }

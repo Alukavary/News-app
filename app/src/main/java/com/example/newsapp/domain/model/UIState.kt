@@ -11,7 +11,6 @@ enum class ErrorType {
 
     NETWORK_WITH_CACHE,
     NETWORK_WITHOUT_CACHE,
-    OTHER_WITH_CACHE,
     OTHER_WITHOUT_CACHE
 }
 
