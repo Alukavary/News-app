@@ -29,7 +29,14 @@ class ResponseCheckRepositoryImpl @Inject constructor(
     override fun observerCategory(category: String): Flow<UIState<List<ArticleModel>>> {
         return localDbCached.getArticlesByCategory(category).map { list ->
             if (list.isEmpty()) {
-                UIState.Loading
+                if (!networkHelper.isNetworkAvailable()) {
+                    UIState.Error(
+                        msg = "No internet and no cache available",
+                        type = ErrorType.NETWORK_WITHOUT_CACHE
+                    )
+                }else {
+                    UIState.Loading
+                }
             } else {
                 UIState.Success(list)
             }
@@ -45,9 +52,7 @@ class ResponseCheckRepositoryImpl @Inject constructor(
 
     override suspend fun refreshNews(category: String) {
         try {
-            if (networkHelper.isNetworkAvailable()) {
                 if (localDbFetchTime.shouldFetch(category)) {
-                    localDbCached.getArticlesByCategory(category)
                     localDbCached.deleteCachedCategory(category)
                     val response = remoteRepository.getNewsByCategory(category, 1)
                     localDbCached.upsetCachedArticle(
@@ -55,11 +60,8 @@ class ResponseCheckRepositoryImpl @Inject constructor(
                     localDbFetchTime.db.saveLastCategoryTime(
                         CategoryTime(category, System.currentTimeMillis())
                     )
-
                 }
-            }
         } catch (e: Exception) {
-        localDbCached.getArticlesByCategory(category)
     }
 }
 
